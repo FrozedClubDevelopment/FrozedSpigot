@@ -117,6 +117,8 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
     public final Thread primaryThread;
     public java.util.Queue<Runnable> processQueue = new java.util.concurrent.ConcurrentLinkedQueue<Runnable>();
     public int autosavePeriod;
+
+    public double lastTickTime;
     // CraftBukkit end
 
     public MinecraftServer(OptionSet options, Proxy proxy, File file1) {
@@ -774,6 +776,7 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
         this.methodProfiler.b();
         org.spigotmc.WatchdogThread.tick(); // Spigot
         co.aikar.timings.TimingsManager.FULL_SERVER_TICK.stopTiming(); // Spigot
+        this.lastTickTime = (System.nanoTime() - i) / 1000000F;
     }
 
     public void B() {

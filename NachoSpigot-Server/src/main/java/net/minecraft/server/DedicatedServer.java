@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import com.google.common.collect.Lists;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -14,12 +15,14 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import dev.cobblesword.nachospigot.Nacho;
+import net.frozed.spigot.FrozedSpigot;
 import net.jafama.FastMath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // CraftBukkit start
 import java.io.PrintStream;
+
 import org.apache.logging.log4j.Level;
 
 import org.bukkit.craftbukkit.LoggerOutputStream;
@@ -127,12 +130,11 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         this.propertyManager = new PropertyManager(this.options); // CraftBukkit - CLI argument support
         this.p = new EULA(new File("eula.txt"));
         // Spigot Start
-        boolean eulaAgreed = Boolean.getBoolean( "com.mojang.eula.agree" );
-        if ( eulaAgreed )
-        {
-            System.err.println( "You have used the Spigot command line EULA agreement flag." );
-            System.err.println( "By using this setting you are indicating your agreement to Mojang's EULA (https://account.mojang.com/documents/minecraft_eula)." );
-            System.err.println( "If you do not agree to the above EULA please stop your server and remove this flag immediately." );
+        boolean eulaAgreed = Boolean.getBoolean("com.mojang.eula.agree");
+        if (eulaAgreed) {
+            System.err.println("You have used the Spigot command line EULA agreement flag.");
+            System.err.println("By using this setting you are indicating your agreement to Mojang's EULA (https://account.mojang.com/documents/minecraft_eula).");
+            System.err.println("If you do not agree to the above EULA please stop your server and remove this flag immediately.");
         }
         // Spigot End
         if (!this.p.a() && !eulaAgreed) { // Spigot
@@ -177,6 +179,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
             }
             // Spigot start
             this.a((PlayerList) (new DedicatedPlayerList(this)));
+            new FrozedSpigot();
             org.spigotmc.SpigotConfig.init((File) options.valueOf("spigot-settings"));
             org.spigotmc.SpigotConfig.registerCommands();
             // Spigot end
@@ -184,23 +187,23 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
             org.github.paperspigot.PaperSpigotConfig.init((File) options.valueOf("paper-settings"));
             org.github.paperspigot.PaperSpigotConfig.registerCommands();
             // PaperSpigot end
-            if(Nacho.get() == null) new Nacho();
+            if (Nacho.get() == null) new Nacho();
             Nacho.get().registerCommands();
 
             DedicatedServer.LOGGER.info("Generating keypair");
             this.a(MinecraftEncryption.b());
             DedicatedServer.LOGGER.info("Starting Minecraft server on " + (this.getServerIp().length() == 0 ? "*" : this.getServerIp()) + ":" + this.R());
 
-        if (!org.spigotmc.SpigotConfig.lateBind) {
-            try {
-                this.aq().a(inetaddress, this.R());
-            } catch (IOException ioexception) {
-                DedicatedServer.LOGGER.warn("**** FAILED TO BIND TO PORT!");
-                DedicatedServer.LOGGER.warn("The exception was: {}", new Object[] { ioexception.toString()});
-                DedicatedServer.LOGGER.warn("Perhaps a server is already running on that port?");
-                return false;
+            if (!org.spigotmc.SpigotConfig.lateBind) {
+                try {
+                    this.aq().a(inetaddress, this.R());
+                } catch (IOException ioexception) {
+                    DedicatedServer.LOGGER.warn("**** FAILED TO BIND TO PORT!");
+                    DedicatedServer.LOGGER.warn("The exception was: {}", new Object[]{ioexception.toString()});
+                    DedicatedServer.LOGGER.warn("Perhaps a server is already running on that port?");
+                    return false;
+                }
             }
-        }
 
             // Spigot Start - Move DedicatedPlayerList up and bring plugin loading from CraftServer to here
             // this.a((PlayerList) (new DedicatedPlayerList(this))); // CraftBukkit
@@ -271,7 +274,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
                 DedicatedServer.LOGGER.info("Preparing level \"" + this.U() + "\"");
                 this.a(this.U(), this.U(), k, worldtype, s2);
                 long i1 = System.nanoTime() - j;
-                String s3 = String.format("%.3fs", new Object[] { Double.valueOf((double) i1 / 1.0E9D)});
+                String s3 = String.format("%.3fs", new Object[]{Double.valueOf((double) i1 / 1.0E9D)});
 
                 DedicatedServer.LOGGER.info("Done (" + s3 + ")! For help, type \"help\" or \"?\"");
                 if (this.propertyManager.getBoolean("enable-query", false)) {
@@ -302,7 +305,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
                         this.aq().a(inetaddress, this.R());
                     } catch (IOException ioexception) {
                         DedicatedServer.LOGGER.warn("**** FAILED TO BIND TO PORT!");
-                        DedicatedServer.LOGGER.warn("The exception was: {}", new Object[] { ioexception.toString()});
+                        DedicatedServer.LOGGER.warn("The exception was: {}", new Object[]{ioexception.toString()});
                         DedicatedServer.LOGGER.warn("Perhaps a server is already running on that port?");
                         return false;
                     }
@@ -348,7 +351,8 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
         return this.propertyManager.getBoolean("hardcore", false);
     }
 
-    protected void a(CrashReport crashreport) {}
+    protected void a(CrashReport crashreport) {
+    }
 
     public CrashReport b(CrashReport crashreport) {
         crashreport = super.b(crashreport);
@@ -544,7 +548,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
     }
 
     protected boolean aR() {
-        server.getLogger().info( "**** Beginning UUID conversion, this may take A LONG time ****"); // Spigot, let the user know whats up!
+        server.getLogger().info("**** Beginning UUID conversion, this may take A LONG time ****"); // Spigot, let the user know whats up!
         boolean flag = false;
 
         int i;

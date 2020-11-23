@@ -4,7 +4,6 @@ import net.frozed.spigot.util.ConfigFile;
 
 public class KnockbackProfile {
 
-
     private final ConfigFile configFile;
     private final String name;
     private double horizontal = 0.325;
@@ -16,9 +15,20 @@ public class KnockbackProfile {
 
     public KnockbackProfile(String name) {
         this.name = name;
-        this.configFile = new ConfigFile("knockback/" + name);
+        this.configFile = new ConfigFile("knockback/" + name + ".yml");
+
+        load();
     }
 
+    public void save() {
+        configFile.set("horizontal", horizontal);
+        configFile.set("vertical", vertical);
+        configFile.set("extraVertical", extraVertical);
+        configFile.set("extraHorizontal", extraHorizontal);
+        configFile.set("verticalLimit", verticalLimit);
+        configFile.set("friction", friction);
+        configFile.save(true);
+    }
 
     public void load() {
         horizontal = configFile.getDouble("horizontal", 0.325);
@@ -27,6 +37,7 @@ public class KnockbackProfile {
         extraHorizontal = configFile.getDouble("extraHorizontal", 0.5);
         verticalLimit = configFile.getDouble("verticalLimit", 0.36);
         friction = configFile.getDouble("friction", 3.5);
+        save();
     }
 
     public String getName() {

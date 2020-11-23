@@ -2,6 +2,7 @@ package org.bukkit;
 
 import java.util.Map;
 
+import net.jafama.FastMath;
 import org.apache.commons.lang.Validate;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
@@ -276,12 +277,12 @@ public final class Color implements ConfigurationSerializable {
         int totalRed = this.getRed();
         int totalGreen = this.getGreen();
         int totalBlue = this.getBlue();
-        int totalMax = Math.max(Math.max(totalRed, totalGreen), totalBlue);
+        int totalMax = FastMath.max(FastMath.max(totalRed, totalGreen), totalBlue);
         for (Color color : colors) {
             totalRed += color.getRed();
             totalGreen += color.getGreen();
             totalBlue += color.getBlue();
-            totalMax += Math.max(Math.max(color.getRed(), color.getGreen()), color.getBlue());
+            totalMax += FastMath.max(FastMath.max(color.getRed(), color.getGreen()), color.getBlue());
         }
 
         float averageRed = totalRed / (colors.length + 1);
@@ -289,7 +290,7 @@ public final class Color implements ConfigurationSerializable {
         float averageBlue = totalBlue / (colors.length + 1);
         float averageMax = totalMax / (colors.length + 1);
 
-        float maximumOfAverages = Math.max(Math.max(averageRed, averageGreen), averageBlue);
+        float maximumOfAverages = FastMath.max(FastMath.max(averageRed, averageGreen), averageBlue);
         float gainFactor = averageMax / maximumOfAverages;
 
         return Color.fromRGB((int) (averageRed * gainFactor), (int) (averageGreen * gainFactor), (int) (averageBlue * gainFactor));

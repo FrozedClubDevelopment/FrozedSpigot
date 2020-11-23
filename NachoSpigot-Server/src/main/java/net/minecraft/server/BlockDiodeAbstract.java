@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.util.Random;
 
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory; // CraftBukkit
 
 public abstract class BlockDiodeAbstract extends BlockDirectional {
@@ -132,7 +133,7 @@ public abstract class BlockDiodeAbstract extends BlockDirectional {
         } else {
             IBlockData iblockdata1 = world.getType(blockposition1);
 
-            return Math.max(i, iblockdata1.getBlock() == Blocks.REDSTONE_WIRE ? ((Integer) iblockdata1.get(BlockRedstoneWire.POWER)).intValue() : 0);
+            return FastMath.max(i, iblockdata1.getBlock() == Blocks.REDSTONE_WIRE ? ((Integer) iblockdata1.get(BlockRedstoneWire.POWER)).intValue() : 0);
         }
     }
 
@@ -141,7 +142,7 @@ public abstract class BlockDiodeAbstract extends BlockDirectional {
         EnumDirection enumdirection1 = enumdirection.e();
         EnumDirection enumdirection2 = enumdirection.f();
 
-        return Math.max(this.c(iblockaccess, blockposition.shift(enumdirection1), enumdirection1), this.c(iblockaccess, blockposition.shift(enumdirection2), enumdirection2));
+        return FastMath.max(this.c(iblockaccess, blockposition.shift(enumdirection1), enumdirection1), this.c(iblockaccess, blockposition.shift(enumdirection2), enumdirection2));
     }
 
     protected int c(IBlockAccess iblockaccess, BlockPosition blockposition, EnumDirection enumdirection) {

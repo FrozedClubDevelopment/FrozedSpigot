@@ -14,6 +14,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import dev.cobblesword.nachospigot.Nacho;
+import net.jafama.FastMath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -498,7 +499,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
             BlockPosition blockposition1 = world.getSpawn();
             int i = MathHelper.a(blockposition.getX() - blockposition1.getX());
             int j = MathHelper.a(blockposition.getZ() - blockposition1.getZ());
-            int k = Math.max(i, j);
+            int k = FastMath.max(i, j);
 
             return k <= this.getSpawnProtection();
         }

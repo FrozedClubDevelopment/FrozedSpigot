@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 
 import com.eatthepath.uuid.FastUUID;
 import dev.cobblesword.nachospigot.Nacho;
+import net.jafama.FastMath;
 import net.minecraft.server.*;
 
 import org.bukkit.BanList;
@@ -416,7 +417,7 @@ public final class CraftServer implements Server {
         int delta = Integer.MAX_VALUE;
         for (Player player : getOnlinePlayers()) {
             if (player.getName().toLowerCase().startsWith(lowerName)) {
-                int curDelta = Math.abs(player.getName().length() - lowerName.length());
+                int curDelta = FastMath.abs(player.getName().length() - lowerName.length());
                 if (curDelta < delta) {
                     found = player;
                     delta = curDelta;

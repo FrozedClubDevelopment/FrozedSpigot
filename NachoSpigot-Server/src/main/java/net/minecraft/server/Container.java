@@ -10,6 +10,8 @@ import java.util.Set;
 // CraftBukkit start
 import java.util.HashMap;
 import java.util.Map;
+
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.inventory.CraftInventory;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.Event.Result;
@@ -331,7 +333,7 @@ public abstract class Container {
                             } else if (itemstack1.getItem() == itemstack4.getItem() && itemstack4.getMaxStackSize() > 1 && (!itemstack1.usesData() || itemstack1.getData() == itemstack4.getData()) && ItemStack.equals(itemstack1, itemstack4)) {
                                 k1 = itemstack1.count;
                                 // CraftBukkit start - itemstack4.getMaxStackSize() -> maxStack
-                                int maxStack = Math.min(itemstack4.getMaxStackSize(), slot2.getMaxStackSize());
+                                int maxStack = FastMath.min(itemstack4.getMaxStackSize(), slot2.getMaxStackSize());
                                 if (k1 > 0 && k1 + itemstack4.count <= maxStack) {
                                     itemstack4.count += k1;
                                     itemstack1 = slot2.a(k1);
@@ -418,7 +420,7 @@ public abstract class Container {
                             Slot slot3 = (Slot) this.c.get(i2);
 
                             if (slot3.hasItem() && a(slot3, itemstack1, true) && slot3.isAllowed(entityhuman) && this.a(itemstack1, slot3) && (l1 != 0 || slot3.getItem().count != slot3.getItem().getMaxStackSize())) {
-                                int j2 = Math.min(itemstack1.getMaxStackSize() - itemstack1.count, slot3.getItem().count);
+                                int j2 = FastMath.min(itemstack1.getMaxStackSize() - itemstack1.count, slot3.getItem().count);
                                 ItemStack itemstack5 = slot3.a(j2);
 
                                 itemstack1.count += j2;
@@ -499,7 +501,7 @@ public abstract class Container {
                     int l = itemstack1.count + itemstack.count;
 
                     // CraftBukkit start - itemstack.getMaxStackSize() -> maxStack
-                    int maxStack = Math.min(itemstack.getMaxStackSize(), slot.getMaxStackSize());
+                    int maxStack = FastMath.min(itemstack.getMaxStackSize(), slot.getMaxStackSize());
                     if (l <= maxStack) {
                         itemstack.count = 0;
                         itemstack1.count = l;
@@ -614,7 +616,7 @@ public abstract class Container {
                 ItemStack itemstack = iinventory.getItem(j);
 
                 if (itemstack != null) {
-                    f += (float) itemstack.count / (float) Math.min(iinventory.getMaxStackSize(), itemstack.getMaxStackSize());
+                    f += (float) itemstack.count / (float) FastMath.min(iinventory.getMaxStackSize(), itemstack.getMaxStackSize());
                     ++i;
                 }
             }

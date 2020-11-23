@@ -25,6 +25,7 @@ package co.aikar.timings;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.EvictingQueue;
+import net.jafama.FastMath;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -176,7 +177,7 @@ public final class Timings {
      * @param interval Interval in ticks
      */
     public static void setHistoryInterval(int interval) {
-        historyInterval = Math.max(20*60, interval);
+        historyInterval = FastMath.max(20*60, interval);
         // Recheck the history length with the new Interval
         if (historyLength != -1) {
             setHistoryLength(historyLength);
@@ -214,11 +215,11 @@ public final class Timings {
         if (System.getProperty("timings.bypassMax") != null) {
             maxLength = Integer.MAX_VALUE;
         }
-        historyLength = Math.max(Math.min(maxLength, length), historyInterval);
+        historyLength = FastMath.max(FastMath.min(maxLength, length), historyInterval);
         Queue<TimingHistory> oldQueue = TimingsManager.HISTORY;
         int frames = (getHistoryLength() / getHistoryInterval());
         if (length > maxLength) {
-            Bukkit.getLogger().log(Level.WARNING, "Timings Length too high. Requested " + length + ", max is " + maxLength + ". To get longer history, you must increase your interval. Set Interval to " + Math.ceil(length / MAX_HISTORY_FRAMES) + " to achieve this length.");
+            Bukkit.getLogger().log(Level.WARNING, "Timings Length too high. Requested " + length + ", max is " + maxLength + ". To get longer history, you must increase your interval. Set Interval to " + FastMath.ceil(length / MAX_HISTORY_FRAMES) + " to achieve this length.");
         }
         TimingsManager.HISTORY = EvictingQueue.create(frames);
         TimingsManager.HISTORY.addAll(oldQueue);

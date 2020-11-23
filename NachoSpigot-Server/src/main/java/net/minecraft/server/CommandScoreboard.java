@@ -2,6 +2,8 @@ package net.minecraft.server;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.jafama.FastMath;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -820,9 +822,9 @@ public class CommandScoreboard extends CommandAbstract {
                 } else if (s1.equals("=")) {
                     scoreboardscore.setScore(scoreboardscore1.getScore());
                 } else if (s1.equals("<")) {
-                    scoreboardscore.setScore(Math.min(scoreboardscore.getScore(), scoreboardscore1.getScore()));
+                    scoreboardscore.setScore(FastMath.min(scoreboardscore.getScore(), scoreboardscore1.getScore()));
                 } else if (s1.equals(">")) {
-                    scoreboardscore.setScore(Math.max(scoreboardscore.getScore(), scoreboardscore1.getScore()));
+                    scoreboardscore.setScore(FastMath.max(scoreboardscore.getScore(), scoreboardscore1.getScore()));
                 } else {
                     if (!s1.equals("><")) {
                         throw new CommandException("commands.scoreboard.players.operation.invalidOperation", new Object[] { s1});

@@ -8,6 +8,7 @@ import java.util.*;
 
 // CraftBukkit start
 
+import net.jafama.FastMath;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -25,11 +26,11 @@ public class WorldMap extends PersistentBase {
     public List<WorldMap.WorldMapHumanTracker> g = Lists.newArrayList();
     public Map<EntityHuman, WorldMap.WorldMapHumanTracker> i = Maps.newHashMap(); // Spigot
     public Map<UUID, MapIcon> decorations = Maps.newLinkedHashMap(); // Spigot
-    private org.bukkit.craftbukkit.map.RenderData vanillaRender = new org.bukkit.craftbukkit.map.RenderData(); // Paper
+    private final org.bukkit.craftbukkit.map.RenderData vanillaRender = new org.bukkit.craftbukkit.map.RenderData(); // Paper
 
     // CraftBukkit start
     public final CraftMapView mapView;
-    private CraftServer server;
+    private final CraftServer server;
     private UUID uniqueId = null;
     // CraftBukkit end
 
@@ -156,11 +157,11 @@ public class WorldMap extends PersistentBase {
         }
 
         for (int i = 0; i < this.g.size(); ++i) {
-            WorldMap.WorldMapHumanTracker worldmap_worldmaphumantracker1 = (WorldMap.WorldMapHumanTracker) this.g.get(i);
+            WorldMap.WorldMapHumanTracker worldmap_worldmaphumantracker1 = this.g.get(i);
 
             if (!worldmap_worldmaphumantracker1.trackee.dead && (worldmap_worldmaphumantracker1.trackee.inventory.c(itemstack) || itemstack.y())) {
                 if (!itemstack.y() && worldmap_worldmaphumantracker1.trackee.dimension == this.map) {
-                    this.a(0, worldmap_worldmaphumantracker1.trackee.world, worldmap_worldmaphumantracker1.trackee.getUniqueID(), worldmap_worldmaphumantracker1.trackee.locX, worldmap_worldmaphumantracker1.trackee.locZ, (double) worldmap_worldmaphumantracker1.trackee.yaw); // Spigot
+                    this.a(0, worldmap_worldmaphumantracker1.trackee.world, worldmap_worldmaphumantracker1.trackee.getUniqueID(), worldmap_worldmaphumantracker1.trackee.locX, worldmap_worldmaphumantracker1.trackee.locZ, worldmap_worldmaphumantracker1.trackee.yaw); // Spigot
                 }
             } else {
                 this.i.remove(worldmap_worldmaphumantracker1.trackee);
@@ -172,7 +173,7 @@ public class WorldMap extends PersistentBase {
             EntityItemFrame entityitemframe = itemstack.z();
             BlockPosition blockposition = entityitemframe.getBlockPosition();
 
-            this.a(1, entityhuman.world, UUID.nameUUIDFromBytes(("frame-" + entityitemframe.getId()).getBytes(Charsets.US_ASCII)), (double) blockposition.getX(), (double) blockposition.getZ(), (double) (entityitemframe.direction.b() * 90)); // Spigot
+            this.a(1, entityhuman.world, UUID.nameUUIDFromBytes(("frame-" + entityitemframe.getId()).getBytes(Charsets.US_ASCII)), blockposition.getX(), blockposition.getZ(), entityitemframe.direction.b() * 90); // Spigot
         }
 
         if (itemstack.hasTag() && itemstack.getTag().hasKeyOfType("Decorations", 9)) {
@@ -210,7 +211,7 @@ public class WorldMap extends PersistentBase {
                 b3 = (byte) (k * k * 34187121 + k * 121 >> 15 & 15);
             }
         } else {
-            if (Math.abs(f) >= 320.0F || Math.abs(f1) >= 320.0F) {
+            if (FastMath.abs(f) >= 320.0F || FastMath.abs(f1) >= 320.0F) {
                 this.decorations.remove(s);
                 return;
             }
@@ -238,7 +239,7 @@ public class WorldMap extends PersistentBase {
     }
 
     public Packet a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        WorldMap.WorldMapHumanTracker worldmap_worldmaphumantracker = (WorldMap.WorldMapHumanTracker) this.i.get(entityhuman);
+        WorldMap.WorldMapHumanTracker worldmap_worldmaphumantracker = this.i.get(entityhuman);
 
         return worldmap_worldmaphumantracker == null ? null : worldmap_worldmaphumantracker.a(itemstack);
     }
@@ -256,7 +257,7 @@ public class WorldMap extends PersistentBase {
     }
 
     public WorldMap.WorldMapHumanTracker a(EntityHuman entityhuman) {
-        WorldMap.WorldMapHumanTracker worldmap_worldmaphumantracker = (WorldMap.WorldMapHumanTracker) this.i.get(entityhuman);
+        WorldMap.WorldMapHumanTracker worldmap_worldmaphumantracker = this.i.get(entityhuman);
 
         if (worldmap_worldmaphumantracker == null) {
             worldmap_worldmaphumantracker = new WorldMap.WorldMapHumanTracker(entityhuman);
@@ -324,10 +325,10 @@ public class WorldMap extends PersistentBase {
 
         public void a(int i, int j) {
             if (this.d) {
-                this.e = Math.min(this.e, i);
-                this.f = Math.min(this.f, j);
-                this.g = Math.max(this.g, i);
-                this.h = Math.max(this.h, j);
+                this.e = FastMath.min(this.e, i);
+                this.f = FastMath.min(this.f, j);
+                this.g = FastMath.max(this.g, i);
+                this.h = FastMath.max(this.h, j);
             } else {
                 this.d = true;
                 this.e = i;

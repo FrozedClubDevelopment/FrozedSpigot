@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
+import net.jafama.FastMath;
 import net.minecraft.server.*;
 
 import org.apache.commons.lang.Validate;
@@ -64,7 +65,7 @@ public class CraftWorld implements World {
     private Environment environment;
     private final CraftServer server = (CraftServer) Bukkit.getServer();
     private final ChunkGenerator generator;
-    private final List<BlockPopulator> populators = new ArrayList<BlockPopulator>();
+    private final List<BlockPopulator> populators = new ArrayList<>();
     private final BlockMetadataStore blockMetadata = new BlockMetadataStore(this);
     private int monsterSpawn = -1;
     private int animalSpawn = -1;
@@ -344,23 +345,23 @@ public class CraftWorld implements World {
         double prevY = loc.getY();
         double prevZ = loc.getZ();
         loc.add(xs, ys, zs);
-        if (loc.getX() < Math.floor(prevX)) {
-            loc.setX(Math.floor(prevX));
+        if (loc.getX() < FastMath.floor(prevX)) {
+            loc.setX(FastMath.floor(prevX));
         }
-        if (loc.getX() >= Math.ceil(prevX)) {
-            loc.setX(Math.ceil(prevX - 0.01));
+        if (loc.getX() >= FastMath.ceil(prevX)) {
+            loc.setX(FastMath.ceil(prevX - 0.01));
         }
-        if (loc.getY() < Math.floor(prevY)) {
-            loc.setY(Math.floor(prevY));
+        if (loc.getY() < FastMath.floor(prevY)) {
+            loc.setY(FastMath.floor(prevY));
         }
-        if (loc.getY() >= Math.ceil(prevY)) {
-            loc.setY(Math.ceil(prevY - 0.01));
+        if (loc.getY() >= FastMath.ceil(prevY)) {
+            loc.setY(FastMath.ceil(prevY - 0.01));
         }
-        if (loc.getZ() < Math.floor(prevZ)) {
-            loc.setZ(Math.floor(prevZ));
+        if (loc.getZ() < FastMath.floor(prevZ)) {
+            loc.setZ(FastMath.floor(prevZ));
         }
-        if (loc.getZ() >= Math.ceil(prevZ)) {
-            loc.setZ(Math.ceil(prevZ - 0.01));
+        if (loc.getZ() >= FastMath.ceil(prevZ)) {
+            loc.setZ(FastMath.ceil(prevZ - 0.01));
         }
     }
 

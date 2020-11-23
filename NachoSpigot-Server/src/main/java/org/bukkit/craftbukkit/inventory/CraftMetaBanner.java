@@ -5,6 +5,8 @@ import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import net.jafama.FastMath;
 import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.NBTTagList;
 import org.bukkit.DyeColor;
@@ -50,7 +52,7 @@ public class CraftMetaBanner extends CraftMetaItem implements BannerMeta {
 
         if (entityTag.hasKey(PATTERNS.NBT)) {
             NBTTagList patterns = entityTag.getList(PATTERNS.NBT, 10);
-            for (int i = 0; i < Math.min(patterns.size(), 20); i++) {
+            for (int i = 0; i < FastMath.min(patterns.size(), 20); i++) {
                 NBTTagCompound p = patterns.get(i);
                 this.patterns.add(new Pattern(DyeColor.getByDyeData((byte) p.getInt(COLOR.NBT)), PatternType.getByIdentifier(p.getString(PATTERN.NBT))));
             }

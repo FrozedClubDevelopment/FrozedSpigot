@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.google.common.collect.AbstractIterator;
+import net.jafama.FastMath;
+
 import java.util.Iterator;
 
 public class BlockPosition extends BaseBlockPosition {
@@ -163,8 +165,8 @@ public class BlockPosition extends BaseBlockPosition {
     }
 
     public static Iterable<BlockPosition> a(BlockPosition blockposition, BlockPosition blockposition1) {
-        final BlockPosition blockposition2 = new BlockPosition(Math.min(blockposition.getX(), blockposition1.getX()), Math.min(blockposition.getY(), blockposition1.getY()), Math.min(blockposition.getZ(), blockposition1.getZ()));
-        final BlockPosition blockposition3 = new BlockPosition(Math.max(blockposition.getX(), blockposition1.getX()), Math.max(blockposition.getY(), blockposition1.getY()), Math.max(blockposition.getZ(), blockposition1.getZ()));
+        final BlockPosition blockposition2 = new BlockPosition(FastMath.min(blockposition.getX(), blockposition1.getX()), FastMath.min(blockposition.getY(), blockposition1.getY()), FastMath.min(blockposition.getZ(), blockposition1.getZ()));
+        final BlockPosition blockposition3 = new BlockPosition(FastMath.max(blockposition.getX(), blockposition1.getX()), FastMath.max(blockposition.getY(), blockposition1.getY()), FastMath.max(blockposition.getZ(), blockposition1.getZ()));
 
         return new Iterable() {
             public Iterator<BlockPosition> iterator() {
@@ -207,8 +209,8 @@ public class BlockPosition extends BaseBlockPosition {
     }
 
     public static Iterable<BlockPosition.MutableBlockPosition> b(BlockPosition blockposition, BlockPosition blockposition1) {
-        final BlockPosition blockposition2 = new BlockPosition(Math.min(blockposition.getX(), blockposition1.getX()), Math.min(blockposition.getY(), blockposition1.getY()), Math.min(blockposition.getZ(), blockposition1.getZ()));
-        final BlockPosition blockposition3 = new BlockPosition(Math.max(blockposition.getX(), blockposition1.getX()), Math.max(blockposition.getY(), blockposition1.getY()), Math.max(blockposition.getZ(), blockposition1.getZ()));
+        final BlockPosition blockposition2 = new BlockPosition(FastMath.min(blockposition.getX(), blockposition1.getX()), FastMath.min(blockposition.getY(), blockposition1.getY()), FastMath.min(blockposition.getZ(), blockposition1.getZ()));
+        final BlockPosition blockposition3 = new BlockPosition(FastMath.max(blockposition.getX(), blockposition1.getX()), FastMath.max(blockposition.getY(), blockposition1.getY()), FastMath.max(blockposition.getZ(), blockposition1.getZ()));
 
         return new Iterable() {
             public Iterator<BlockPosition.MutableBlockPosition> iterator() {

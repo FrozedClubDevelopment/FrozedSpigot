@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.Material;
 // CraftBukkit end
@@ -50,7 +51,7 @@ public class PathfinderGoalEatTile extends PathfinderGoal {
     }
 
     public void e() {
-        this.a = Math.max(0, this.a - 1);
+        this.a = FastMath.max(0, this.a - 1);
         if (this.a == 4) {
             BlockPosition blockposition = new BlockPosition(this.c.locX, this.c.locY, this.c.locZ);
 

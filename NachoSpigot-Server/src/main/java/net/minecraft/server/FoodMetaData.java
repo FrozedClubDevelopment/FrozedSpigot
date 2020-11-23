@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
+
 public class FoodMetaData {
 
     public int foodLevel = 20;
@@ -19,8 +21,8 @@ public class FoodMetaData {
     // CraftBukkit end
 
     public void eat(int i, float f) {
-        this.foodLevel = Math.min(i + this.foodLevel, 20);
-        this.saturationLevel = Math.min(this.saturationLevel + (float) i * f * 2.0F, (float) this.foodLevel);
+        this.foodLevel = FastMath.min(i + this.foodLevel, 20);
+        this.saturationLevel = FastMath.min(this.saturationLevel + (float) i * f * 2.0F, (float) this.foodLevel);
     }
 
     public void a(ItemFood itemfood, ItemStack itemstack) {
@@ -44,10 +46,10 @@ public class FoodMetaData {
         if (this.exhaustionLevel > 4.0F) {
             this.exhaustionLevel -= 4.0F;
             if (this.saturationLevel > 0.0F) {
-                this.saturationLevel = Math.max(this.saturationLevel - 1.0F, 0.0F);
+                this.saturationLevel = FastMath.max(this.saturationLevel - 1.0F, 0.0F);
             } else if (enumdifficulty != EnumDifficulty.PEACEFUL) {
                 // CraftBukkit start
-                org.bukkit.event.entity.FoodLevelChangeEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callFoodLevelChangeEvent(entityhuman, Math.max(this.foodLevel - 1, 0));
+                org.bukkit.event.entity.FoodLevelChangeEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callFoodLevelChangeEvent(entityhuman, FastMath.max(this.foodLevel - 1, 0));
 
                 if (!event.isCancelled()) {
                     this.foodLevel = event.getFoodLevel();
@@ -107,7 +109,7 @@ public class FoodMetaData {
     }
 
     public void a(float f) {
-        this.exhaustionLevel = Math.min(this.exhaustionLevel + f, 40.0F);
+        this.exhaustionLevel = FastMath.min(this.exhaustionLevel + f, 40.0F);
     }
 
     public float getSaturationLevel() {

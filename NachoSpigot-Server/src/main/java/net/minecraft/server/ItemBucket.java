@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
@@ -11,7 +12,7 @@ import org.github.paperspigot.PaperSpigotConfig; // PaperSpigot
 
 public class ItemBucket extends Item {
 
-    private Block a;
+    private final Block a;
 
     public ItemBucket(Block block) {
         this.maxStackSize = 1;
@@ -149,7 +150,7 @@ public class ItemBucket extends Item {
                     world.makeSound((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
 
                     for (int l = 0; l < 8; ++l) {
-                        world.addParticle(EnumParticle.SMOKE_LARGE, (double) i + Math.random(), (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D, new int[0]);
+                        world.addParticle(EnumParticle.SMOKE_LARGE, (double) i + FastMath.random(), (double) j + FastMath.random(), (double) k + FastMath.random(), 0.0D, 0.0D, 0.0D, new int[0]);
                     }
                 } else {
                     if (!world.isClientSide && flag && !material.isLiquid()) {

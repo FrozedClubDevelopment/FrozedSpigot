@@ -8,6 +8,7 @@ import java.util.concurrent.Callable;
 
 // CraftBukkit start
 import com.eatthepath.uuid.FastUUID;
+import net.jafama.FastMath;
 import org.apache.logging.log4j.LogManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -558,7 +559,7 @@ public abstract class Entity implements ICommandListener {
             AxisAlignedBB axisalignedbb2;
             Iterator iterator1;
 
-            if(this.world.tacoSpigotConfig.fixEastWest && Math.abs(d0) > Math.abs(d2)) { //TacoSpigot - fix east/west cannoning by calculating the z movement before x if the x velocity is greater
+            if(this.world.tacoSpigotConfig.fixEastWest && FastMath.abs(d0) > FastMath.abs(d2)) { //TacoSpigot - fix east/west cannoning by calculating the z movement before x if the x velocity is greater
             if(axisScan) list = this.world.getCubes(this, this.getBoundingBox().a(0, 0, d2)); // TacoSpigot - get z axis blocks
 
             for (iterator1 = list.iterator(); iterator1.hasNext(); d2 = axisalignedbb2.c(this.getBoundingBox(), d2)) {
@@ -1335,15 +1336,15 @@ public abstract class Entity implements ICommandListener {
             this.motZ = nbttaglist1.d(2);
 
             /* CraftBukkit start - Moved section down
-            if (Math.abs(this.motX) > 10.0D) {
+            if (FastMath.abs(this.motX) > 10.0D) {
                 this.motX = 0.0D;
             }
 
-            if (Math.abs(this.motY) > 10.0D) {
+            if (FastMath.abs(this.motY) > 10.0D) {
                 this.motY = 0.0D;
             }
 
-            if (Math.abs(this.motZ) > 10.0D) {
+            if (FastMath.abs(this.motZ) > 10.0D) {
                 this.motZ = 0.0D;
             }
             // CraftBukkit end */
@@ -1398,15 +1399,15 @@ public abstract class Entity implements ICommandListener {
 
             // CraftBukkit start - Exempt Vehicles from notch's sanity check
             if (!(getBukkitEntity() instanceof Vehicle)) {
-                if (Math.abs(this.motX) > 10.0D) {
+                if (FastMath.abs(this.motX) > 10.0D) {
                     this.motX = 0.0D;
                 }
 
-                if (Math.abs(this.motY) > 10.0D) {
+                if (FastMath.abs(this.motY) > 10.0D) {
                     this.motY = 0.0D;
                 }
 
-                if (Math.abs(this.motZ) > 10.0D) {
+                if (FastMath.abs(this.motZ) > 10.0D) {
                     this.motZ = 0.0D;
                 }
             }
@@ -1732,7 +1733,7 @@ public abstract class Entity implements ICommandListener {
                 double d0 = shapedetector_shapedetectorcollection.b().k() == EnumDirection.EnumAxis.X ? (double) shapedetector_shapedetectorcollection.a().getZ() : (double) shapedetector_shapedetectorcollection.a().getX();
                 double d1 = shapedetector_shapedetectorcollection.b().k() == EnumDirection.EnumAxis.X ? this.locZ : this.locX;
 
-                d1 = Math.abs(MathHelper.c(d1 - (double) (shapedetector_shapedetectorcollection.b().e().c() == EnumDirection.EnumAxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) shapedetector_shapedetectorcollection.d()));
+                d1 = FastMath.abs(MathHelper.c(d1 - (double) (shapedetector_shapedetectorcollection.b().e().c() == EnumDirection.EnumAxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) shapedetector_shapedetectorcollection.d()));
                 double d2 = MathHelper.c(this.locY - 1.0D, (double) shapedetector_shapedetectorcollection.a().getY(), (double) (shapedetector_shapedetectorcollection.a().getY() - shapedetector_shapedetectorcollection.e()));
 
                 this.ao = new Vec3D(d1, d2, 0.0D);

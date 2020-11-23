@@ -3,6 +3,7 @@ package net.minecraft.server;
 import java.util.Random;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.craftbukkit.util.CraftMagicNumbers;
@@ -53,7 +54,7 @@ public class BlockGrass extends Block implements IBlockFragilePlantElement {
 
 
                 if (world.tacoSpigotConfig.grassIgnoresLight || lightLevel >= 9) { // TacoSpigot - add an option to ignore light
-                    for (int i = 0; i < Math.min(4, Math.max(20, (int) (4 * 100F / world.growthOdds))); ++i) { // Spigot
+                    for (int i = 0; i < FastMath.min(4, FastMath.max(20, (int) (4 * 100F / world.growthOdds))); ++i) { // Spigot
                         BlockPosition blockposition1 = blockposition.a(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
                         Block block = world.getType(blockposition1.up()).getBlock();
                         IBlockData iblockdata1 = world.getType(blockposition1);

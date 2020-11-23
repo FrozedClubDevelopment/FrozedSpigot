@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
@@ -309,10 +310,10 @@ public class BlockFire extends Block {
             for (int k = 0; k < j; ++k) {
                 EnumDirection enumdirection = aenumdirection[k];
 
-//                i = Math.max(this.d(world.getType(blockposition.shift(enumdirection)).getBlock()), i);
+//                i = FastMath.max(this.d(world.getType(blockposition.shift(enumdirection)).getBlock()), i);
                 final IBlockData type = world.getTypeIfLoaded(blockposition.shift(enumdirection)); // Paper
                 if (type == null) continue; // Paper
-                i = Math.max(this.d(type.getBlock()), i); // Paper
+                i = FastMath.max(this.d(type.getBlock()), i); // Paper
             }
 
             return i;

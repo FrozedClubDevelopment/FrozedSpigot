@@ -3,6 +3,7 @@ package net.minecraft.server;
 import java.util.List;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.entity.Vehicle;
@@ -182,14 +183,14 @@ public class EntityBoat extends Entity {
             }
         }
 
-        double d3 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
+        double d3 = FastMath.sqrt(this.motX * this.motX + this.motZ * this.motZ);
         double d4;
         double d5;
         int j;
 
         if (d3 > 0.2975D) {
-            d4 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D);
-            d5 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D);
+            d4 = FastMath.cos((double) this.yaw * 3.141592653589793D / 180.0D);
+            d5 = FastMath.sin((double) this.yaw * 3.141592653589793D / 180.0D);
 
             for (j = 0; (double) j < 1.0D + d3 * 60.0D; ++j) {
                 double d6 = (double) (this.random.nextFloat() * 2.0F - 1.0F);
@@ -255,8 +256,8 @@ public class EntityBoat extends Entity {
                 EntityLiving entityliving = (EntityLiving) this.passenger;
                 float f = this.passenger.yaw + -entityliving.aZ * 90.0F;
 
-                this.motX += -Math.sin((double) (f * 3.1415927F / 180.0F)) * this.b * (double) entityliving.ba * 0.05000000074505806D;
-                this.motZ += Math.cos((double) (f * 3.1415927F / 180.0F)) * this.b * (double) entityliving.ba * 0.05000000074505806D;
+                this.motX += -FastMath.sin((double) (f * 3.1415927F / 180.0F)) * this.b * (double) entityliving.ba * 0.05000000074505806D;
+                this.motZ += FastMath.cos((double) (f * 3.1415927F / 180.0F)) * this.b * (double) entityliving.ba * 0.05000000074505806D;
             }
             // CraftBukkit start - Support unoccupied deceleration
             else if (unoccupiedDeceleration >= 0) {
@@ -272,7 +273,7 @@ public class EntityBoat extends Entity {
             }
             // CraftBukkit end
 
-            d4 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
+            d4 = FastMath.sqrt(this.motX * this.motX + this.motZ * this.motZ);
             if (d4 > 0.35D) {
                 d5 = 0.35D / d4;
                 this.motX *= d5;
@@ -410,8 +411,8 @@ public class EntityBoat extends Entity {
 
     public void al() {
         if (this.passenger != null) {
-            double d0 = Math.cos((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
-            double d1 = Math.sin((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
+            double d0 = FastMath.cos((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
+            double d1 = FastMath.sin((double) this.yaw * 3.141592653589793D / 180.0D) * 0.4D;
 
             this.passenger.setPosition(this.locX + d0, this.locY + this.an() + this.passenger.am(), this.locZ + d1);
         }

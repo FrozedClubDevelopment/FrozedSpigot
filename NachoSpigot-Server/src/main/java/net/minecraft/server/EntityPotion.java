@@ -6,6 +6,7 @@ import java.util.List;
 // CraftBukkit start
 import java.util.HashMap;
 
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 // CraftBukkit end
@@ -79,7 +80,7 @@ public class EntityPotion extends EntityProjectile {
                         double d0 = this.h(entityliving);
 
                         if (d0 < 16.0D) {
-                            double d1 = 1.0D - Math.sqrt(d0) / 4.0D;
+                            double d1 = 1.0D - FastMath.sqrt(d0) / 4.0D;
 
                             if (entityliving == movingobjectposition.entity) {
                                 d1 = 1.0D;

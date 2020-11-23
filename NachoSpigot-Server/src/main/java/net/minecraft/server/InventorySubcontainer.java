@@ -5,6 +5,8 @@ import java.util.List;
 
 // CraftBukkit start
 import java.util.List;
+
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
 // CraftBukkit end
@@ -111,8 +113,8 @@ public class InventorySubcontainer implements IInventory {
             }
 
             if (ItemStack.c(itemstack2, itemstack1)) {
-                int j = Math.min(this.getMaxStackSize(), itemstack2.getMaxStackSize());
-                int k = Math.min(itemstack1.count, j - itemstack2.count);
+                int j = FastMath.min(this.getMaxStackSize(), itemstack2.getMaxStackSize());
+                int k = FastMath.min(itemstack1.count, j - itemstack2.count);
 
                 if (k > 0) {
                     itemstack2.count += k;
@@ -170,7 +172,7 @@ public class InventorySubcontainer implements IInventory {
     }
 
     public IChatBaseComponent getScoreboardDisplayName() {
-        return (IChatBaseComponent) (this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatMessage(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatMessage(this.getName(), new Object[0]);
     }
 
     public int getMaxStackSize() {

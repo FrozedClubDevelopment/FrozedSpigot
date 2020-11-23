@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.jafama.FastMath;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -215,10 +216,10 @@ public class HelpCommand extends VanillaCommand {
                     H[i + 1][j + 1] = H[i][j];
                     DB = j;
                 } else {
-                    H[i + 1][j + 1] = Math.min(H[i][j], Math.min(H[i + 1][j], H[i][j + 1])) + 1;
+                    H[i + 1][j + 1] = FastMath.min(H[i][j], FastMath.min(H[i + 1][j], H[i][j + 1])) + 1;
                 }
 
-                H[i + 1][j + 1] = Math.min(H[i + 1][j + 1], H[i1][j1] + (i - i1 - 1) + 1 + (j - j1 - 1));
+                H[i + 1][j + 1] = FastMath.min(H[i + 1][j + 1], H[i1][j1] + (i - i1 - 1) + 1 + (j - j1 - 1));
             }
             sd.put(s1.charAt(i - 1), i);
         }

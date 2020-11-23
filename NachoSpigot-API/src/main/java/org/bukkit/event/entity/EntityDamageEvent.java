@@ -3,6 +3,7 @@ package org.bukkit.event.entity;
 import java.util.EnumMap;
 import java.util.Map;
 
+import net.jafama.FastMath;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -187,9 +188,9 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
             // Don't allow value to cross zero, assume zero values should be negative
             double old = getDamage(modifier);
             if (old > 0) {
-                setDamage(modifier, Math.max(0, old - difference));
+                setDamage(modifier, FastMath.max(0, old - difference));
             } else {
-                setDamage(modifier, Math.min(0, old - difference));
+                setDamage(modifier, FastMath.min(0, old - difference));
             }
             remaining += newVanilla;
             oldRemaining += oldVanilla;

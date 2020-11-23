@@ -1,5 +1,6 @@
 package org.bukkit.craftbukkit;
 
+import net.jafama.FastMath;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
@@ -37,8 +38,8 @@ public class CraftWorldBorder implements WorldBorder {
     @Override
     public void setSize(double newSize, long time) {
         // PAIL: TODO: Magic Values
-        newSize = Math.min(6.0E7D, Math.max(1.0D, newSize));
-        time = Math.min(9223372036854775L, Math.max(0L, time));
+        newSize = FastMath.min(6.0E7D, FastMath.max(1.0D, newSize));
+        time = FastMath.min(9223372036854775L, FastMath.max(0L, time));
 
         if (time > 0L) {
             this.handle.transitionSizeBetween(this.handle.getSize(), newSize, time * 1000L);
@@ -58,8 +59,8 @@ public class CraftWorldBorder implements WorldBorder {
     @Override
     public void setCenter(double x, double z) {
         // PAIL: TODO: Magic Values
-        x = Math.min(3.0E7D, Math.max(-3.0E7D, x));
-        z = Math.min(3.0E7D, Math.max(-3.0E7D, z));
+        x = FastMath.min(3.0E7D, FastMath.max(-3.0E7D, x));
+        z = FastMath.min(3.0E7D, FastMath.max(-3.0E7D, z));
 
         this.handle.setCenter(x, z); 
     }

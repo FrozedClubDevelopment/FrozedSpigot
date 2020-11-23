@@ -3,6 +3,7 @@ package net.minecraft.server;
 import java.util.Iterator;
 import java.util.Random;
 
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory; // CraftBukkit
 
 public class BlockVine extends Block {
@@ -52,7 +53,7 @@ public class BlockVine extends Block {
         boolean flag = false;
 
         if (((Boolean) iblockaccess.getType(blockposition).get(BlockVine.WEST)).booleanValue()) {
-            f4 = Math.max(f4, 0.0625F);
+            f4 = FastMath.max(f4, 0.0625F);
             f1 = 0.0F;
             f2 = 0.0F;
             f5 = 1.0F;
@@ -62,7 +63,7 @@ public class BlockVine extends Block {
         }
 
         if (((Boolean) iblockaccess.getType(blockposition).get(BlockVine.EAST)).booleanValue()) {
-            f1 = Math.min(f1, 0.9375F);
+            f1 = FastMath.min(f1, 0.9375F);
             f4 = 1.0F;
             f2 = 0.0F;
             f5 = 1.0F;
@@ -72,7 +73,7 @@ public class BlockVine extends Block {
         }
 
         if (((Boolean) iblockaccess.getType(blockposition).get(BlockVine.NORTH)).booleanValue()) {
-            f6 = Math.max(f6, 0.0625F);
+            f6 = FastMath.max(f6, 0.0625F);
             f3 = 0.0F;
             f1 = 0.0F;
             f4 = 1.0F;
@@ -82,7 +83,7 @@ public class BlockVine extends Block {
         }
 
         if (((Boolean) iblockaccess.getType(blockposition).get(BlockVine.SOUTH)).booleanValue()) {
-            f3 = Math.min(f3, 0.9375F);
+            f3 = FastMath.min(f3, 0.9375F);
             f6 = 1.0F;
             f1 = 0.0F;
             f4 = 1.0F;
@@ -92,7 +93,7 @@ public class BlockVine extends Block {
         }
 
         if (!flag && this.c(iblockaccess.getType(blockposition.up()).getBlock())) {
-            f2 = Math.min(f2, 0.9375F);
+            f2 = FastMath.min(f2, 0.9375F);
             f5 = 1.0F;
             f1 = 0.0F;
             f4 = 1.0F;

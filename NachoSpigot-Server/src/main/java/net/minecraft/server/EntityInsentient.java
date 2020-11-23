@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
@@ -613,7 +614,7 @@ public abstract class EntityInsentient extends EntityLiving {
 
             if (itemstack != null && (flag || flag1) && this.random.nextFloat() - (float) i * 0.01F < this.dropChances[j]) {
                 if (!flag1 && itemstack.e()) {
-                    int k = Math.max(itemstack.j() - 25, 1);
+                    int k = FastMath.max(itemstack.j() - 25, 1);
                     int l = itemstack.j() - this.random.nextInt(this.random.nextInt(k) + 1);
 
                     if (l > k) {

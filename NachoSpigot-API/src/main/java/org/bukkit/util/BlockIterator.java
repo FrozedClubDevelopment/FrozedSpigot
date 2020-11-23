@@ -2,6 +2,7 @@ package org.bukkit.util;
 
 import static org.bukkit.util.NumberConversions.*;
 
+import net.jafama.FastMath;
 import org.bukkit.World;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -171,7 +172,7 @@ public class BlockIterator implements Iterator<Block> {
         }
 
         // Calculate the number of planes passed to give max distance
-        maxDistanceInt = round(maxDistance / (Math.sqrt(mainDirection * mainDirection + secondDirection * secondDirection + thirdDirection * thirdDirection) / mainDirection));
+        maxDistanceInt = round(maxDistance / (FastMath.sqrt(mainDirection * mainDirection + secondDirection * secondDirection + thirdDirection * thirdDirection) / mainDirection));
 
     }
 
@@ -192,15 +193,15 @@ public class BlockIterator implements Iterator<Block> {
     }
 
     private double getXLength(Vector direction) {
-        return Math.abs(direction.getX());
+        return FastMath.abs(direction.getX());
     }
 
     private double getYLength(Vector direction) {
-        return Math.abs(direction.getY());
+        return FastMath.abs(direction.getY());
     }
 
     private double getZLength(Vector direction) {
-        return Math.abs(direction.getZ());
+        return FastMath.abs(direction.getZ());
     }
 
     private double getPosition(double direction, double position, int blockPosition) {

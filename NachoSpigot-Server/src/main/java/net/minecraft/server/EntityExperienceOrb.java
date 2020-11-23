@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
@@ -20,10 +21,10 @@ public class EntityExperienceOrb extends Entity {
         super(world);
         this.setSize(0.5F, 0.5F);
         this.setPosition(d0, d1, d2);
-        this.yaw = (float) (Math.random() * 360.0D);
-        this.motX = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
-        this.motY = (double) ((float) (Math.random() * 0.2D) * 2.0F);
-        this.motZ = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
+        this.yaw = (float) (FastMath.random() * 360.0D);
+        this.motX = (double) ((float) (FastMath.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
+        this.motY = (double) ((float) (FastMath.random() * 0.2D) * 2.0F);
+        this.motZ = (double) ((float) (FastMath.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
         this.value = i;
     }
 
@@ -85,7 +86,7 @@ public class EntityExperienceOrb extends Entity {
             double d1 = (this.targetPlayer.locX - this.locX) / d0;
             double d2 = (this.targetPlayer.locY + (double) this.targetPlayer.getHeadHeight() - this.locY) / d0;
             double d3 = (this.targetPlayer.locZ - this.locZ) / d0;
-            double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
+            double d4 = FastMath.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
             double d5 = 1.0D - d4;
 
             if (d5 > 0.0D) {

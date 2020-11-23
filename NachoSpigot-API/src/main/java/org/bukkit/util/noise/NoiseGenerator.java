@@ -10,7 +10,7 @@ public abstract class NoiseGenerator {
     protected double offsetZ;
 
     /**
-     * Speedy floor, faster than (int)Math.floor(x)
+     * Speedy floor, faster than (int)FastMath.floor(x)
      *
      * @param x Value to floor
      * @return Floored value

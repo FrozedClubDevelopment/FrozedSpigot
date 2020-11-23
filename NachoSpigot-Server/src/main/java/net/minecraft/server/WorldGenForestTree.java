@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
+
 import java.util.Random;
 
 public class WorldGenForestTree extends WorldGenTreeAbstract {
@@ -87,7 +89,7 @@ public class WorldGenForestTree extends WorldGenTreeAbstract {
 
                 for (j2 = -3; j2 <= 4; ++j2) {
                     for (k2 = -3; k2 <= 4; ++k2) {
-                        if ((j2 != -3 || k2 != -3) && (j2 != -3 || k2 != 4) && (j2 != 4 || k2 != -3) && (j2 != 4 || k2 != 4) && (Math.abs(j2) < 3 || Math.abs(k2) < 3)) {
+                        if ((j2 != -3 || k2 != -3) && (j2 != -3 || k2 != 4) && (j2 != 4 || k2 != -3) && (j2 != 4 || k2 != 4) && (FastMath.abs(j2) < 3 || FastMath.abs(k2) < 3)) {
                             this.a(world, k1 + j2, i2, l1 + k2);
                         }
                     }
@@ -114,7 +116,7 @@ public class WorldGenForestTree extends WorldGenTreeAbstract {
 
                             for (i3 = -2; i3 <= 2; ++i3) {
                                 for (j3 = -2; j3 <= 2; ++j3) {
-                                    if (Math.abs(i3) != 2 || Math.abs(j3) != 2) {
+                                    if (FastMath.abs(i3) != 2 || FastMath.abs(j3) != 2) {
                                         this.a(world, k1 + j2 + i3, i2 - 1, l1 + k2 + j3);
                                     }
                                 }

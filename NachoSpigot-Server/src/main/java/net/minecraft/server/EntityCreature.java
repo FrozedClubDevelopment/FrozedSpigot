@@ -4,6 +4,7 @@ import java.util.UUID;
 
 // CraftBukkit start
 import com.eatthepath.uuid.FastUUID;
+import net.jafama.FastMath;
 import org.bukkit.event.entity.EntityUnleashEvent;
 // CraftBukkit end
 
@@ -100,9 +101,9 @@ public abstract class EntityCreature extends EntityInsentient {
                 double d1 = (entity.locY - this.locY) / (double) f;
                 double d2 = (entity.locZ - this.locZ) / (double) f;
 
-                this.motX += d0 * Math.abs(d0) * 0.4D;
-                this.motY += d1 * Math.abs(d1) * 0.4D;
-                this.motZ += d2 * Math.abs(d2) * 0.4D;
+                this.motX += d0 * FastMath.abs(d0) * 0.4D;
+                this.motY += d1 * FastMath.abs(d1) * 0.4D;
+                this.motZ += d2 * FastMath.abs(d2) * 0.4D;
             }
 
             if (f > 10.0F) {

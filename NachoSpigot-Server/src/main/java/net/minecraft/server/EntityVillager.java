@@ -2,6 +2,8 @@ package net.minecraft.server;
 
 import java.util.Iterator;
 import java.util.Random;
+
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.entity.CraftVillager; // CraftBukkit
 
 public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
@@ -220,7 +222,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
     }
 
     public int getProfession() {
-        return Math.max(this.datawatcher.getInt(16) % 5, 0);
+        return FastMath.max(this.datawatcher.getInt(16) % 5, 0);
     }
 
     public boolean cm() {

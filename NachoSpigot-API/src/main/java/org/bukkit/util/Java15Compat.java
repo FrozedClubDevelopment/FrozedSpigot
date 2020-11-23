@@ -1,5 +1,7 @@
 package org.bukkit.util;
 
+import net.jafama.FastMath;
+
 import java.lang.reflect.Array;
 
 public class Java15Compat {
@@ -8,7 +10,7 @@ public class Java15Compat {
         if (original.length >= start && 0 <= start) {
             if (start <= end) {
                 int length = end - start;
-                int copyLength = Math.min(length, original.length - start);
+                int copyLength = FastMath.min(length, original.length - start);
                 T[] copy = (T[]) Array.newInstance(original.getClass().getComponentType(), length);
 
                 System.arraycopy(original, start, copy, 0, copyLength);

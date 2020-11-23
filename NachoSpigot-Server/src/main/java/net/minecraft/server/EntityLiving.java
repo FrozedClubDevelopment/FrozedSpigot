@@ -14,6 +14,7 @@ import java.util.UUID;
 import java.util.ArrayList;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Vehicle;
@@ -112,10 +113,10 @@ public abstract class EntityLiving extends Entity {
         // CraftBukkit - setHealth(getMaxHealth()) inlined and simplified to skip the instanceof check for EntityPlayer, as getBukkitEntity() is not initialized in constructor
         this.datawatcher.watch(6, (float) this.getAttributeInstance(GenericAttributes.maxHealth).getValue());
         this.k = true;
-        this.aH = (float) ((Math.random() + 1.0D) * 0.009999999776482582D);
+        this.aH = (float) ((FastMath.random() + 1.0D) * 0.009999999776482582D);
         this.setPosition(this.locX, this.locY, this.locZ);
-        this.aG = (float) Math.random() * 12398.0F;
-        this.yaw = (float) (Math.random() * 3.1415927410125732D * 2.0D);
+        this.aG = (float) FastMath.random() * 12398.0F;
+        this.yaw = (float) (FastMath.random() * 3.1415927410125732D * 2.0D);
         this.aK = this.yaw;
         this.S = 0.6F;
     }
@@ -144,7 +145,7 @@ public abstract class EntityLiving extends Entity {
             float f = (float) MathHelper.f(this.fallDistance - 3.0F);
 
             if (block1.getMaterial() != Material.AIR) {
-                double d1 = (double) Math.min(0.2F + f / 15.0F, 10.0F);
+                double d1 = (double) FastMath.min(0.2F + f / 15.0F, 10.0F);
 
                 if (d1 > 2.5D) {
                     d1 = 2.5D;
@@ -183,7 +184,7 @@ public abstract class EntityLiving extends Entity {
                 double d0 = this.world.getWorldBorder().a((Entity) this) + this.world.getWorldBorder().getDamageBuffer();
 
                 if (d0 < 0.0D) {
-                    this.damageEntity(DamageSource.STUCK, (float) Math.max(1, MathHelper.floor(-d0 * this.world.getWorldBorder().getDamageAmount())));
+                    this.damageEntity(DamageSource.STUCK, (float) FastMath.max(1, MathHelper.floor(-d0 * this.world.getWorldBorder().getDamageAmount())));
                 }
             }
         }
@@ -372,7 +373,7 @@ public abstract class EntityLiving extends Entity {
 
     public void b(NBTTagCompound nbttagcompound) {
         nbttagcompound.setFloat("HealF", this.getHealth());
-        nbttagcompound.setShort("Health", (short) ((int) Math.ceil((double) this.getHealth())));
+        nbttagcompound.setShort("Health", (short) ((int) FastMath.ceil((double) this.getHealth())));
         nbttagcompound.setShort("HurtTime", (short) this.hurtTicks);
         nbttagcompound.setInt("HurtByTimestamp", this.hurtTimestamp);
         nbttagcompound.setShort("DeathTime", (short) this.deathTicks);
@@ -799,14 +800,14 @@ public abstract class EntityLiving extends Entity {
 
                         double d1;
 
-                        for (d1 = entity.locZ - this.locZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (Math.random() - Math.random()) * 0.01D) {
-                            d0 = (Math.random() - Math.random()) * 0.01D;
+                        for (d1 = entity.locZ - this.locZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (FastMath.random() - FastMath.random()) * 0.01D) {
+                            d0 = (FastMath.random() - FastMath.random()) * 0.01D;
                         }
 
                         this.aw = (float) (MathHelper.b(d1, d0) * 180.0D / 3.1415927410125732D - (double) this.yaw);
                         this.a(entity, f, d0, d1);
                     } else {
-                        this.aw = (float) ((int) (Math.random() * 2.0D) * 180);
+                        this.aw = (float) ((int) (FastMath.random() * 2.0D) * 180);
                     }
                 }
 
@@ -837,7 +838,7 @@ public abstract class EntityLiving extends Entity {
         this.makeSound("random.break", 0.8F, 0.8F + this.world.random.nextFloat() * 0.4F);
 
         for (int i = 0; i < 5; ++i) {
-            Vec3D vec3d = new Vec3D(((double) this.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+            Vec3D vec3d = new Vec3D(((double) this.random.nextFloat() - 0.5D) * 0.1D, FastMath.random() * 0.1D + 0.1D, 0.0D);
 
             vec3d = vec3d.a(-this.pitch * 3.1415927F / 180.0F);
             vec3d = vec3d.b(-this.yaw * 3.1415927F / 180.0F);
@@ -1105,7 +1106,7 @@ public abstract class EntityLiving extends Entity {
             Function<Double, Double> absorption = new Function<Double, Double>() {
                 @Override
                 public Double apply(Double f) {
-                    return -(Math.max(f - Math.max(f - EntityLiving.this.getAbsorptionHearts(), 0.0F), 0.0F));
+                    return -(FastMath.max(f - FastMath.max(f - EntityLiving.this.getAbsorptionHearts(), 0.0F), 0.0F));
                 }
             };
             float absorptionModifier = absorption.apply((double) f).floatValue();
@@ -1129,13 +1130,13 @@ public abstract class EntityLiving extends Entity {
             }
 
             absorptionModifier = (float) -event.getDamage(DamageModifier.ABSORPTION);
-            this.setAbsorptionHearts(Math.max(this.getAbsorptionHearts() - absorptionModifier, 0.0F));
+            this.setAbsorptionHearts(FastMath.max(this.getAbsorptionHearts() - absorptionModifier, 0.0F));
             if (f != 0.0F) {
                 if (human) {
                     // PAIL: Be sure to drag all this code from the EntityHuman subclass each update.
                     ((EntityHuman) this).applyExhaustion(damagesource.getExhaustionCost());
                     if (f < 3.4028235E37F) {
-                        ((EntityHuman) this).a(StatisticList.x, Math.round(f * 10.0F));
+                        ((EntityHuman) this).a(StatisticList.x, FastMath.round(f * 10.0F));
                     }
                 }
                 // CraftBukkit end
@@ -1519,8 +1520,8 @@ public abstract class EntityLiving extends Entity {
 
         if (f > 0.0025000002F) {
             f3 = 1.0F;
-            f2 = (float) Math.sqrt((double) f) * 3.0F;
-            // CraftBukkit - Math -> TrigMath
+            f2 = (float) FastMath.sqrt((double) f) * 3.0F;
+            // CraftBukkit - FastMath -> TrigMath
             f1 = (float) org.bukkit.craftbukkit.TrigMath.atan2(d1, d0) * 180.0F / 3.1415927F - 90.0F;
         }
 
@@ -1623,15 +1624,15 @@ public abstract class EntityLiving extends Entity {
             this.motZ *= 0.98D;
         }
 
-        if (Math.abs(this.motX) < 0.005D) {
+        if (FastMath.abs(this.motX) < 0.005D) {
             this.motX = 0.0D;
         }
 
-        if (Math.abs(this.motY) < 0.005D) {
+        if (FastMath.abs(this.motY) < 0.005D) {
             this.motY = 0.0D;
         }
 
-        if (Math.abs(this.motZ) < 0.005D) {
+        if (FastMath.abs(this.motZ) < 0.005D) {
             this.motZ = 0.0D;
         }
 

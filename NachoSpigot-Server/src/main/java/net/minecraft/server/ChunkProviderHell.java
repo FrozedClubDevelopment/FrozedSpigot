@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
+
 import java.util.List;
 import java.util.Random;
 
@@ -237,7 +239,7 @@ public class ChunkProviderHell implements IChunkProvider {
         int l1;
 
         for (l1 = 0; l1 < i1; ++l1) {
-            adouble1[l1] = Math.cos((double) l1 * 3.141592653589793D * 6.0D / (double) i1) * 2.0D;
+            adouble1[l1] = FastMath.cos((double) l1 * 3.141592653589793D * 6.0D / (double) i1) * 2.0D;
             double d2 = (double) l1;
 
             if (l1 > i1 / 2) {

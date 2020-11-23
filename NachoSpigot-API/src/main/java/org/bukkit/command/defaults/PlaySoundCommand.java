@@ -1,5 +1,6 @@
 package org.bukkit.command.defaults;
 
+import net.jafama.FastMath;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -36,9 +37,9 @@ public class PlaySoundCommand extends VanillaCommand {
 
         final Location location = player.getLocation();
 
-        double x = Math.floor(location.getX());
-        double y = Math.floor(location.getY() + 0.5D);
-        double z = Math.floor(location.getZ());
+        double x = FastMath.floor(location.getX());
+        double y = FastMath.floor(location.getY() + 0.5D);
+        double z = FastMath.floor(location.getZ());
         double volume = 1.0D;
         double pitch = 1.0D;
         double minimumVolume = 0.0D;
@@ -72,7 +73,7 @@ public class PlaySoundCommand extends VanillaCommand {
             final double deltaX = x - location.getX();
             final double deltaY = y - location.getY();
             final double deltaZ = z - location.getZ();
-            final double delta = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) / 2.0D;
+            final double delta = FastMath.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) / 2.0D;
 
             if (delta > 0.0D) {
                 location.add(deltaX / delta, deltaY / delta, deltaZ / delta);

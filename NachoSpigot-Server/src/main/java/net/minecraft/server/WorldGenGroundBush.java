@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
+
 import java.util.Random;
 
 public class WorldGenGroundBush extends WorldGenTrees {
@@ -36,7 +38,7 @@ public class WorldGenGroundBush extends WorldGenTrees {
                     for (int j1 = blockposition.getZ() - k; j1 <= blockposition.getZ() + k; ++j1) {
                         int k1 = j1 - blockposition.getZ();
 
-                        if (Math.abs(i1) != k || Math.abs(k1) != k || random.nextInt(2) != 0) {
+                        if (FastMath.abs(i1) != k || FastMath.abs(k1) != k || random.nextInt(2) != 0) {
                             BlockPosition blockposition1 = new BlockPosition(l, i, j1);
 
                             if (!world.getType(blockposition1).getBlock().o()) {

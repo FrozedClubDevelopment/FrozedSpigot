@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import java.util.Iterator;
+
+import net.jafama.FastMath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.event.player.PlayerPickupItemEvent; // CraftBukkit
@@ -26,13 +28,13 @@ public class EntityItem extends Entity implements HopperPusher {
     public EntityItem(World world, double d0, double d1, double d2) {
         super(world);
         this.e = 5;
-        this.a = (float) (Math.random() * 3.141592653589793D * 2.0D);
+        this.a = (float) (FastMath.random() * 3.141592653589793D * 2.0D);
         this.setSize(0.25F, 0.25F);
         this.setPosition(d0, d1, d2);
-        this.yaw = (float) (Math.random() * 360.0D);
-        this.motX = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
+        this.yaw = (float) (FastMath.random() * 360.0D);
+        this.motX = (double) ((float) (FastMath.random() * 0.20000000298023224D - 0.10000000149011612D));
         this.motY = 0.20000000298023224D;
-        this.motZ = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
+        this.motZ = (double) ((float) (FastMath.random() * 0.20000000298023224D - 0.10000000149011612D));
     }
 
     public EntityItem(World world, double d0, double d1, double d2, ItemStack itemstack) {
@@ -52,7 +54,7 @@ public class EntityItem extends Entity implements HopperPusher {
     public EntityItem(World world) {
         super(world);
         this.e = 5;
-        this.a = (float) (Math.random() * 3.141592653589793D * 2.0D);
+        this.a = (float) (FastMath.random() * 3.141592653589793D * 2.0D);
         this.setSize(0.25F, 0.25F);
         this.setItemStack(new ItemStack(Blocks.AIR, 0));
     }
@@ -70,7 +72,7 @@ public class EntityItem extends Entity implements HopperPusher {
             // CraftBukkit start - Use wall time for pickup and despawn timers
             int elapsedTicks = MinecraftServer.currentTick - this.lastTick;
             if (this.pickupDelay != 32767) this.pickupDelay -= elapsedTicks;
-            this.pickupDelay = Math.max(0, this.pickupDelay); // Paper - don't go below 0
+            this.pickupDelay = FastMath.max(0, this.pickupDelay); // Paper - don't go below 0
             if (this.age != -32768) this.age += elapsedTicks;
             this.lastTick = MinecraftServer.currentTick;
             // CraftBukkit end
@@ -138,7 +140,7 @@ public class EntityItem extends Entity implements HopperPusher {
         // CraftBukkit start - Use wall time for pickup and despawn timers
         int elapsedTicks = MinecraftServer.currentTick - this.lastTick;
         if (this.pickupDelay != 32767) this.pickupDelay -= elapsedTicks;
-        this.pickupDelay = Math.max(0, this.pickupDelay); // Paper - don't go below 0
+        this.pickupDelay = FastMath.max(0, this.pickupDelay); // Paper - don't go below 0
         if (this.age != -32768) this.age += elapsedTicks;
         this.lastTick = MinecraftServer.currentTick;
         // CraftBukkit end
@@ -196,8 +198,8 @@ public class EntityItem extends Entity implements HopperPusher {
                         // Spigot start
                         if (org.bukkit.craftbukkit.event.CraftEventFactory.callItemMergeEvent(entityitem, this).isCancelled()) return false; // CraftBukkit
                         itemstack.count += itemstack1.count;
-                        this.pickupDelay = Math.max(entityitem.pickupDelay, this.pickupDelay);
-                        this.age = Math.min(entityitem.age, this.age);
+                        this.pickupDelay = FastMath.max(entityitem.pickupDelay, this.pickupDelay);
+                        this.age = FastMath.min(entityitem.age, this.age);
                         this.setItemStack(itemstack);
                         entityitem.die();
                         // Spigot end

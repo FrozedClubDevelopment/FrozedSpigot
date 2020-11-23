@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
+
 import java.util.Random;
 
 public class WorldGenPackedIce2 extends WorldGenerator {
@@ -68,7 +70,7 @@ public class WorldGenPackedIce2 extends WorldGenerator {
                     BlockPosition blockposition1 = blockposition.a(k1, -1, l);
                     int l1 = 50;
 
-                    if (Math.abs(k1) == 1 && Math.abs(l) == 1) {
+                    if (FastMath.abs(k1) == 1 && FastMath.abs(l) == 1) {
                         l1 = random.nextInt(5);
                     }
 

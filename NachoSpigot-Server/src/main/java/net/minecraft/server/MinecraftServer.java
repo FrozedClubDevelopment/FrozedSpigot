@@ -36,6 +36,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import javax.imageio.ImageIO;
 
+import net.jafama.FastMath;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -578,54 +579,57 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
 
                 // Spigot start
                 // PaperSpigot start - Further improve tick loop
-                Arrays.fill(recentTps, 20);
-                //long lastTick = System.nanoTime(), catchupTime = 0, curTime, wait, tickSection = lastTick;
-                long start = System.nanoTime(), lastTick = start - TICK_TIME, catchupTime = 0, curTime, wait, tickSection = start;
+                final long start = System.nanoTime();
+                long lastTick = start - MinecraftServer.TICK_TIME;
+                long nextTick = start + MinecraftServer.TICK_TIME;
+                long tickSection = start;
+                long catchupTime = 0L;
+                long curTime;
+                long wait;
                 // PaperSpigot end
                 while (this.isRunning) {
                     curTime = System.nanoTime();
+                    if (nextTick > curTime) {
+                        Thread.sleep(1L);
+                        continue;
+                    }
                     // PaperSpigot start - Further improve tick loop
-                    wait = TICK_TIME - (curTime - lastTick);
-                    if (wait > 0) {
-                        // TacoSpigot start - fix the tick loop improvements
+                    wait = MinecraftServer.TICK_TIME - (curTime - lastTick);
+                    if (wait > 0L) {
                         if (catchupTime < 2E6) {
-                            wait += Math.abs(catchupTime);
-                        } else if (wait < catchupTime) {
-                            catchupTime -= wait;
-                            wait = 0;
-                        } else {
-                            wait -= catchupTime;
-                            catchupTime = 0;
+                            wait += FastMath.abs(catchupTime);
                         }
-                        // TacoSpigot end
+                        if (wait < catchupTime) {
+                            catchupTime -= wait;
+                            wait = 0L;
+                        } else if (catchupTime > 2E6) {
+                            wait -= catchupTime;
+                            catchupTime = 0L;
+                        }
                     }
-                    if (wait > 0) {
-                        Thread.sleep(wait / 1000000);
-                        curTime = System.nanoTime();
-                        wait = TICK_TIME - (curTime - lastTick);
+                    if (wait > 0L) {
+                        Thread.sleep(1L);
+                        wait = MinecraftServer.TICK_TIME - (curTime - lastTick);
                     }
 
-                    catchupTime = Math.min(MAX_CATCHUP_BUFFER, catchupTime - wait);
+                    nextTick = curTime + (MinecraftServer.TICK_TIME - catchupTime);
+                    catchupTime = FastMath.min(MinecraftServer.MAX_CATCHUP_BUFFER, catchupTime - wait);
 
-                    if (++MinecraftServer.currentTick % SAMPLE_INTERVAL == 0) {
-                        final long diff = curTime - tickSection;
-                        double currentTps = 1E9 / diff * SAMPLE_INTERVAL;
-                        tps1.add(currentTps, diff);
-                        tps5.add(currentTps, diff);
-                        tps15.add(currentTps, diff);
+                    if (++MinecraftServer.currentTick % MinecraftServer.SAMPLE_INTERVAL == 0) {
+                        long diff = curTime - tickSection;
+                        double currentTps = 1E9 / diff * MinecraftServer.SAMPLE_INTERVAL;
+
+                        this.tps1.add(currentTps, diff);
+                        this.tps5.add(currentTps, diff);
+                        this.tps15.add(currentTps, diff);
                         // Backwards compat with bad plugins
-                        recentTps[0] = tps1.getAverage();
-                        recentTps[1] = tps5.getAverage();
-                        recentTps[2] = tps15.getAverage();
                         tickSection = curTime;
                         // PaperSpigot end
                     }
                     lastTick = curTime;
-
                     this.A();
                     this.Q = true;
                 }
-                // Spigot end
             } else {
                 this.a((CrashReport) null);
             }
@@ -731,7 +735,7 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
         if (i - this.X >= 5000000000L) {
             this.X = i;
             this.r.setPlayerSample(new ServerPing.ServerPingPlayerSample(this.J(), this.I()));
-            GameProfile[] agameprofile = new GameProfile[Math.min(this.I(), 12)];
+            GameProfile[] agameprofile = new GameProfile[FastMath.min(this.I(), 12)];
             int j = MathHelper.nextInt(this.s, 0, this.I() - agameprofile.length);
 
             for (int k = 0; k < agameprofile.length; ++k) {
@@ -955,86 +959,6 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
         DispenserRegistry.c();
 
         try {
-            /* CraftBukkit start - Replace everything
-            boolean flag = true;
-            String s = null;
-            String s1 = ".";
-            String s2 = null;
-            boolean flag1 = false;
-            boolean flag2 = false;
-            int i = -1;
-
-            for (int j = 0; j < astring.length; ++j) {
-                String s3 = astring[j];
-                String s4 = j == astring.length - 1 ? null : astring[j + 1];
-                boolean flag3 = false;
-
-                if (!s3.equals("nogui") && !s3.equals("--nogui")) {
-                    if (s3.equals("--port") && s4 != null) {
-                        flag3 = true;
-
-                        try {
-                            i = Integer.parseInt(s4);
-                        } catch (NumberFormatException numberformatexception) {
-                            ;
-                        }
-                    } else if (s3.equals("--singleplayer") && s4 != null) {
-                        flag3 = true;
-                        s = s4;
-                    } else if (s3.equals("--universe") && s4 != null) {
-                        flag3 = true;
-                        s1 = s4;
-                    } else if (s3.equals("--world") && s4 != null) {
-                        flag3 = true;
-                        s2 = s4;
-                    } else if (s3.equals("--demo")) {
-                        flag1 = true;
-                    } else if (s3.equals("--bonusChest")) {
-                        flag2 = true;
-                    }
-                } else {
-                    flag = false;
-                }
-
-                if (flag3) {
-                    ++j;
-                }
-            }
-
-            final DedicatedServer dedicatedserver = new DedicatedServer(new File(s1));
-
-            if (s != null) {
-                dedicatedserver.i(s);
-            }
-
-            if (s2 != null) {
-                dedicatedserver.setWorld(s2);
-            }
-
-            if (i >= 0) {
-                dedicatedserver.setPort(i);
-            }
-
-            if (flag1) {
-                dedicatedserver.b(true);
-            }
-
-            if (flag2) {
-                dedicatedserver.c(true);
-            }
-
-            if (flag && !GraphicsEnvironment.isHeadless()) {
-                dedicatedserver.aQ();
-            }
-
-            dedicatedserver.D();
-            Runtime.getRuntime().addShutdownHook(new Thread("Server Shutdown Thread") {
-                public void run() {
-                    dedicatedserver.stop();
-                }
-            });
-            */
-
             DedicatedServer dedicatedserver = new DedicatedServer(options);
 
             if (options.has("port")) {

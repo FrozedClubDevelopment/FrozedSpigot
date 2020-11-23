@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.craftbukkit.entity.CraftItem;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
@@ -555,7 +556,7 @@ public class TileEntityHopper extends TileEntityContainer implements IHopper, IU
                 flag = true;
             } else if (a(itemstack1, itemstack)) {
                 int j = itemstack.getMaxStackSize() - itemstack1.count;
-                int k = Math.min(itemstack.count, j);
+                int k = FastMath.min(itemstack.count, j);
 
                 itemstack.count -= k;
                 itemstack1.count += k;

@@ -1,5 +1,6 @@
 package net.techcable.tacospigot;
 
+import net.jafama.FastMath;
 import net.minecraft.server.AxisAlignedBB;
 import net.minecraft.server.BlockPosition;
 import net.minecraft.server.Entity;
@@ -13,8 +14,8 @@ public interface HopperPusher {
         BlockPosition pos = new BlockPosition(getX(), getY(), getZ());
         int startX = pos.getX() - 1;
         int endX = pos.getX() + 1;
-        int startY = Math.max(0, pos.getY() - 1);
-        int endY = Math.min(255, pos.getY() + 1);
+        int startY = FastMath.max(0, pos.getY() - 1);
+        int endY = FastMath.min(255, pos.getY() + 1);
         int startZ = pos.getZ() - 1;
         int endZ = pos.getZ() + 1;
         for (int x = startX; x <= endX; x++) {

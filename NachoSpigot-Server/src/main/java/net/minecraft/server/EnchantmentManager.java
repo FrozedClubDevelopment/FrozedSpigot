@@ -2,6 +2,8 @@ package net.minecraft.server;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.jafama.FastMath;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -256,7 +258,7 @@ public class EnchantmentManager {
 
             int l = random.nextInt(8) + 1 + (j >> 1) + random.nextInt(j + 1);
 
-            return i == 0 ? Math.max(l / 3, 1) : (i == 1 ? l * 2 / 3 + 1 : Math.max(l, j * 2));
+            return i == 0 ? FastMath.max(l / 3, 1) : (i == 1 ? l * 2 / 3 + 1 : FastMath.max(l, j * 2));
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.concurrent.Callable;
 // CraftBukkit start
 import java.util.List;
 
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
 // CraftBukkit end
@@ -119,7 +120,7 @@ public class PlayerInventory implements IInventory {
         for (l = 0; l < this.items.length; ++l) {
             itemstack = this.items[l];
             if (itemstack != null && (item == null || itemstack.getItem() == item) && (i <= -1 || itemstack.getData() == i) && (nbttagcompound == null || GameProfileSerializer.a(nbttagcompound, itemstack.getTag(), true))) {
-                i1 = j <= 0 ? itemstack.count : Math.min(j - k, itemstack.count);
+                i1 = j <= 0 ? itemstack.count : FastMath.min(j - k, itemstack.count);
                 k += i1;
                 if (j != 0) {
                     this.items[l].count -= i1;
@@ -137,7 +138,7 @@ public class PlayerInventory implements IInventory {
         for (l = 0; l < this.armor.length; ++l) {
             itemstack = this.armor[l];
             if (itemstack != null && (item == null || itemstack.getItem() == item) && (i <= -1 || itemstack.getData() == i) && (nbttagcompound == null || GameProfileSerializer.a(nbttagcompound, itemstack.getTag(), false))) {
-                i1 = j <= 0 ? itemstack.count : Math.min(j - k, itemstack.count);
+                i1 = j <= 0 ? itemstack.count : FastMath.min(j - k, itemstack.count);
                 k += i1;
                 if (j != 0) {
                     this.armor[l].count -= i1;
@@ -165,7 +166,7 @@ public class PlayerInventory implements IInventory {
                 return k;
             }
 
-            l = j <= 0 ? this.f.count : Math.min(j - k, this.f.count);
+            l = j <= 0 ? this.f.count : FastMath.min(j - k, this.f.count);
             k += l;
             if (j != 0) {
                 this.f.count -= l;

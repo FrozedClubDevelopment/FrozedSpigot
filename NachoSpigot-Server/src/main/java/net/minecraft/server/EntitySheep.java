@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.event.entity.SheepRegrowWoolEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
 import org.bukkit.inventory.InventoryView;
@@ -57,7 +58,7 @@ public class EntitySheep extends EntityAnimal {
 
     public void m() {
         if (this.world.isClientSide) {
-            this.bp = Math.max(0, this.bp - 1);
+            this.bp = FastMath.max(0, this.bp - 1);
         }
 
         super.m();

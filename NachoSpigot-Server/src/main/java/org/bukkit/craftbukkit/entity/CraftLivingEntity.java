@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import net.jafama.FastMath;
 import net.minecraft.server.DamageSource;
 import net.minecraft.server.EntityArmorStand;
 import net.minecraft.server.EntityArrow;
@@ -74,7 +75,7 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
     }
 
     public double getHealth() {
-        return Math.min(Math.max(0, getHandle().getHealth()), getMaxHealth());
+        return FastMath.min(FastMath.max(0, getHandle().getHealth()), getMaxHealth());
     }
 
     public void setHealth(double health) {

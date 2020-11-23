@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 //CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityCombustByEntityEvent;
@@ -125,7 +126,7 @@ public class EntityZombie extends EntityMonster {
     public void m() {
         if (this.world.w() && !this.world.isClientSide && !this.isBaby()) {
             float f = this.c(1.0F);
-            BlockPosition blockposition = new BlockPosition(this.locX, (double) Math.round(this.locY), this.locZ);
+            BlockPosition blockposition = new BlockPosition(this.locX, (double) FastMath.round(this.locY), this.locZ);
 
             if (f > 0.5F && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.i(blockposition)) {
                 boolean flag = true;
@@ -464,7 +465,7 @@ public class EntityZombie extends EntityMonster {
         this.bn = i;
         this.getDataWatcher().watch(14, Byte.valueOf((byte) 1));
         this.removeEffect(MobEffectList.WEAKNESS.id);
-        this.addEffect(new MobEffect(MobEffectList.INCREASE_DAMAGE.id, i, Math.min(this.world.getDifficulty().a() - 1, 0)));
+        this.addEffect(new MobEffect(MobEffectList.INCREASE_DAMAGE.id, i, FastMath.min(this.world.getDifficulty().a() - 1, 0)));
         this.world.broadcastEntityEffect(this, (byte) 16);
     }
 

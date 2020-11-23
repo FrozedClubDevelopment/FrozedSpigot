@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import java.util.Iterator;
 import java.util.List;
 
+import net.jafama.FastMath;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason; // CraftBukkit
 
 public class EntityHorse extends EntityAnimal implements IInventoryListener {
@@ -338,7 +339,7 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         this.inventoryChest.a(this.getName());
         if (inventoryhorsechest != null) {
             inventoryhorsechest.b(this);
-            int i = Math.min(inventoryhorsechest.getSize(), this.inventoryChest.getSize());
+            int i = FastMath.min(inventoryhorsechest.getSize(), this.inventoryChest.getSize());
 
             for (int j = 0; j < i; ++j) {
                 ItemStack itemstack = inventoryhorsechest.getItem(j);

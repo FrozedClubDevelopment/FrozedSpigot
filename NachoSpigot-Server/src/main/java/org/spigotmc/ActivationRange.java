@@ -3,6 +3,8 @@ package org.spigotmc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import net.jafama.FastMath;
 import net.minecraft.server.AxisAlignedBB;
 import net.minecraft.server.Chunk;
 import net.minecraft.server.Entity;
@@ -106,9 +108,9 @@ public class ActivationRange
         final int animalActivationRange = world.spigotConfig.animalActivationRange;
         final int monsterActivationRange = world.spigotConfig.monsterActivationRange;
 
-        int maxRange = Math.max( monsterActivationRange, animalActivationRange );
-        maxRange = Math.max( maxRange, miscActivationRange );
-        maxRange = Math.min( ( world.spigotConfig.viewDistance << 4 ) - 8, maxRange );
+        int maxRange = FastMath.max( monsterActivationRange, animalActivationRange );
+        maxRange = FastMath.max( maxRange, miscActivationRange );
+        maxRange = FastMath.min( ( world.spigotConfig.viewDistance << 4 ) - 8, maxRange );
 
         for ( Entity player : (List<Entity>) (List) world.players )
         {

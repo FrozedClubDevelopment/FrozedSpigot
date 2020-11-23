@@ -3,6 +3,8 @@ package org.bukkit.util;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
+
+import net.jafama.FastMath;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -153,7 +155,7 @@ public class Vector implements Cloneable, ConfigurationSerializable {
      * @return the magnitude
      */
     public double length() {
-        return Math.sqrt(NumberConversions.square(x) + NumberConversions.square(y) + NumberConversions.square(z));
+        return FastMath.sqrt(NumberConversions.square(x) + NumberConversions.square(y) + NumberConversions.square(z));
     }
 
     /**
@@ -176,7 +178,7 @@ public class Vector implements Cloneable, ConfigurationSerializable {
      * @return the distance
      */
     public double distance(Vector o) {
-        return Math.sqrt(NumberConversions.square(x - o.x) + NumberConversions.square(y - o.y) + NumberConversions.square(z - o.z));
+        return FastMath.sqrt(NumberConversions.square(x - o.x) + NumberConversions.square(y - o.y) + NumberConversions.square(z - o.z));
     }
 
     /**
@@ -198,7 +200,7 @@ public class Vector implements Cloneable, ConfigurationSerializable {
     public float angle(Vector other) {
         double dot = dot(other) / (length() * other.length());
 
-        return (float) Math.acos(dot);
+        return (float) FastMath.acos(dot);
     }
 
     /**
@@ -526,7 +528,7 @@ public class Vector implements Cloneable, ConfigurationSerializable {
 
         Vector other = (Vector) obj;
 
-        return Math.abs(x - other.x) < epsilon && Math.abs(y - other.y) < epsilon && Math.abs(z - other.z) < epsilon && (this.getClass().equals(obj.getClass()));
+        return FastMath.abs(x - other.x) < epsilon && FastMath.abs(y - other.y) < epsilon && FastMath.abs(z - other.z) < epsilon && (this.getClass().equals(obj.getClass()));
     }
 
     /**
@@ -614,7 +616,7 @@ public class Vector implements Cloneable, ConfigurationSerializable {
      * @return minimum
      */
     public static Vector getMinimum(Vector v1, Vector v2) {
-        return new Vector(Math.min(v1.x, v2.x), Math.min(v1.y, v2.y), Math.min(v1.z, v2.z));
+        return new Vector(FastMath.min(v1.x, v2.x), FastMath.min(v1.y, v2.y), FastMath.min(v1.z, v2.z));
     }
 
     /**
@@ -625,7 +627,7 @@ public class Vector implements Cloneable, ConfigurationSerializable {
      * @return maximum
      */
     public static Vector getMaximum(Vector v1, Vector v2) {
-        return new Vector(Math.max(v1.x, v2.x), Math.max(v1.y, v2.y), Math.max(v1.z, v2.z));
+        return new Vector(FastMath.max(v1.x, v2.x), FastMath.max(v1.y, v2.y), FastMath.max(v1.z, v2.z));
     }
 
     /**

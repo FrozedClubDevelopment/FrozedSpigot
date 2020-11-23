@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.Map.Entry;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 // CraftBukkit end
@@ -123,7 +124,7 @@ public class MobEffectList {
                 entityliving.damageEntity(DamageSource.MAGIC, (float) (6 << i));
             }
         } else {
-            entityliving.heal((float) Math.max(4 << i, 0), RegainReason.MAGIC); // CraftBukkit
+            entityliving.heal((float) FastMath.max(4 << i, 0), RegainReason.MAGIC); // CraftBukkit
         }
 
     }

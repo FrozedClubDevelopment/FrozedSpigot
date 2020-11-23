@@ -1,5 +1,6 @@
 package org.bukkit.craftbukkit.chunkio;
 
+import net.jafama.FastMath;
 import net.minecraft.server.Chunk;
 import net.minecraft.server.ChunkProviderServer;
 import net.minecraft.server.ChunkRegionLoader;
@@ -26,7 +27,7 @@ public class ChunkIOExecutor {
     }
 
     public static void adjustPoolSize(int players) {
-        int size = Math.max(BASE_THREADS, (int) Math.ceil(players / PLAYERS_PER_THREAD));
+        int size = FastMath.max(BASE_THREADS, (int) FastMath.ceil(players / PLAYERS_PER_THREAD));
         instance.setActiveThreads(size);
     }
 

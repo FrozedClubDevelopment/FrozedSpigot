@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
+
 import java.util.Random;
 
 public class BlockNetherWart extends BlockPlant {
@@ -27,7 +29,7 @@ public class BlockNetherWart extends BlockPlant {
     public void b(World world, BlockPosition blockposition, IBlockData iblockdata, Random random) {
         int i = ((Integer) iblockdata.get(BlockNetherWart.AGE)).intValue();
 
-        if (i < 3 && random.nextInt(Math.max(1, (int) world.growthOdds / world.spigotConfig.wartModifier * 10)) == 0) { // Spigot
+        if (i < 3 && random.nextInt(FastMath.max(1, (int) world.growthOdds / world.spigotConfig.wartModifier * 10)) == 0) { // Spigot
             iblockdata = iblockdata.set(BlockNetherWart.AGE, Integer.valueOf(i + 1));
             // world.setTypeAndData(blockposition, iblockdata, 2); // CraftBukkit
             org.bukkit.craftbukkit.event.CraftEventFactory.handleBlockGrowEvent(world, blockposition.getX(), blockposition.getY(), blockposition.getZ(), this, toLegacyData(iblockdata)); // CraftBukkit

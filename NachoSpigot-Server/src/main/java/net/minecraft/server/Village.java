@@ -3,6 +3,8 @@ package net.minecraft.server;
 import com.eatthepath.uuid.FastUUID;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
+import net.jafama.FastMath;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
@@ -203,7 +205,7 @@ public class Village {
                 }
 
                 villagedoor = (VillageDoor) iterator.next();
-            } while (villagedoor.d().getX() != blockposition.getX() || villagedoor.d().getZ() != blockposition.getZ() || Math.abs(villagedoor.d().getY() - blockposition.getY()) > 1);
+            } while (villagedoor.d().getX() != blockposition.getX() || villagedoor.d().getZ() != blockposition.getZ() || FastMath.abs(villagedoor.d().getY() - blockposition.getY()) > 1);
 
             return villagedoor;
         }
@@ -285,7 +287,7 @@ public class Village {
         while (iterator.hasNext()) {
             Village.Aggressor village_aggressor = (Village.Aggressor) iterator.next();
 
-            if (!village_aggressor.a.isAlive() || Math.abs(this.g - village_aggressor.b) > 300) {
+            if (!village_aggressor.a.isAlive() || FastMath.abs(this.g - village_aggressor.b) > 300) {
                 iterator.remove();
             }
         }
@@ -304,7 +306,7 @@ public class Village {
                 villagedoor.a();
             }
 
-            if (!this.f(villagedoor.d()) || Math.abs(this.g - villagedoor.h()) > 1200) {
+            if (!this.f(villagedoor.d()) || FastMath.abs(this.g - villagedoor.h()) > 1200) {
                 this.c = this.c.b(villagedoor.d());
                 flag = true;
                 villagedoor.a(true);
@@ -341,11 +343,11 @@ public class Village {
 
             VillageDoor villagedoor;
 
-            for (Iterator iterator = this.b.iterator(); iterator.hasNext(); j = Math.max(villagedoor.a(this.d), j)) {
+            for (Iterator iterator = this.b.iterator(); iterator.hasNext(); j = FastMath.max(villagedoor.a(this.d), j)) {
                 villagedoor = (VillageDoor) iterator.next();
             }
 
-            this.e = Math.max(32, (int) Math.sqrt((double) j) + 1);
+            this.e = FastMath.max(32, (int) FastMath.sqrt((double) j) + 1);
         }
     }
 

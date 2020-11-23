@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
 // CraftBukkit end
@@ -21,7 +22,7 @@ public class SlotFurnaceResult extends Slot {
 
     public ItemStack a(int i) {
         if (this.hasItem()) {
-            this.b += Math.min(i, this.getItem().count);
+            this.b += FastMath.min(i, this.getItem().count);
         }
 
         return super.a(i);
@@ -48,7 +49,7 @@ public class SlotFurnaceResult extends Slot {
                 i = 0;
             } else if (f < 1.0F) {
                 j = MathHelper.d((float) i * f);
-                if (j < MathHelper.f((float) i * f) && Math.random() < (double) ((float) i * f - (float) j)) {
+                if (j < MathHelper.f((float) i * f) && FastMath.random() < (double) ((float) i * f - (float) j)) {
                     ++j;
                 }
 

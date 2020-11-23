@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.google.common.collect.Lists;
+import net.jafama.FastMath;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -140,7 +142,7 @@ public class WorldGenVillagePieces {
     private static StructurePiece d(WorldGenVillagePieces.WorldGenVillageStartPiece worldgenvillagepieces_worldgenvillagestartpiece, List<StructurePiece> list, Random random, int i, int j, int k, EnumDirection enumdirection, int l) {
         if (l > 50) {
             return null;
-        } else if (Math.abs(i - worldgenvillagepieces_worldgenvillagestartpiece.c().a) <= 112 && Math.abs(k - worldgenvillagepieces_worldgenvillagestartpiece.c().c) <= 112) {
+        } else if (FastMath.abs(i - worldgenvillagepieces_worldgenvillagestartpiece.c().a) <= 112 && FastMath.abs(k - worldgenvillagepieces_worldgenvillagestartpiece.c().c) <= 112) {
             WorldGenVillagePieces.WorldGenVillagePiece worldgenvillagepieces_worldgenvillagepiece = c(worldgenvillagepieces_worldgenvillagestartpiece, list, random, i, j, k, enumdirection, l + 1);
 
             if (worldgenvillagepieces_worldgenvillagepiece != null) {
@@ -166,7 +168,7 @@ public class WorldGenVillagePieces {
     private static StructurePiece e(WorldGenVillagePieces.WorldGenVillageStartPiece worldgenvillagepieces_worldgenvillagestartpiece, List<StructurePiece> list, Random random, int i, int j, int k, EnumDirection enumdirection, int l) {
         if (l > 3 + worldgenvillagepieces_worldgenvillagestartpiece.c) {
             return null;
-        } else if (Math.abs(i - worldgenvillagepieces_worldgenvillagestartpiece.c().a) <= 112 && Math.abs(k - worldgenvillagepieces_worldgenvillagestartpiece.c().c) <= 112) {
+        } else if (FastMath.abs(i - worldgenvillagepieces_worldgenvillagestartpiece.c().a) <= 112 && FastMath.abs(k - worldgenvillagepieces_worldgenvillagestartpiece.c().c) <= 112) {
             StructureBoundingBox structureboundingbox = WorldGenVillagePieces.WorldGenVillageRoad.a(worldgenvillagepieces_worldgenvillagestartpiece, list, random, i, j, k, enumdirection);
 
             if (structureboundingbox != null && structureboundingbox.b > 10) {
@@ -1240,7 +1242,7 @@ public class WorldGenVillagePieces {
             super(worldgenvillagepieces_worldgenvillagestartpiece, i);
             this.m = enumdirection;
             this.l = structureboundingbox;
-            this.a = Math.max(structureboundingbox.c(), structureboundingbox.e());
+            this.a = FastMath.max(structureboundingbox.c(), structureboundingbox.e());
         }
 
         protected void a(NBTTagCompound nbttagcompound) {
@@ -1262,7 +1264,7 @@ public class WorldGenVillagePieces {
             for (i = random.nextInt(5); i < this.a - 8; i += 2 + random.nextInt(5)) {
                 structurepiece1 = this.a((WorldGenVillagePieces.WorldGenVillageStartPiece) structurepiece, list, random, 0, i);
                 if (structurepiece1 != null) {
-                    i += Math.max(structurepiece1.l.c(), structurepiece1.l.e());
+                    i += FastMath.max(structurepiece1.l.c(), structurepiece1.l.e());
                     flag = true;
                 }
             }
@@ -1270,7 +1272,7 @@ public class WorldGenVillagePieces {
             for (i = random.nextInt(5); i < this.a - 8; i += 2 + random.nextInt(5)) {
                 structurepiece1 = this.b((WorldGenVillagePieces.WorldGenVillageStartPiece) structurepiece, list, random, 0, i);
                 if (structurepiece1 != null) {
-                    i += Math.max(structurepiece1.l.c(), structurepiece1.l.e());
+                    i += FastMath.max(structurepiece1.l.c(), structurepiece1.l.e());
                     flag = true;
                 }
             }
@@ -1525,7 +1527,7 @@ public class WorldGenVillagePieces {
                 for (int l = this.l.a; l <= this.l.d; ++l) {
                     blockposition_mutableblockposition.c(l, 64, k);
                     if (structureboundingbox.b((BaseBlockPosition) blockposition_mutableblockposition)) {
-                        i += Math.max(world.r(blockposition_mutableblockposition).getY(), world.worldProvider.getSeaLevel());
+                        i += FastMath.max(world.r(blockposition_mutableblockposition).getY(), world.worldProvider.getSeaLevel());
                         ++j;
                     }
                 }

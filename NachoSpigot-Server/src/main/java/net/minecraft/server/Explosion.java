@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.Location;
@@ -35,7 +36,7 @@ public class Explosion {
     public Explosion(World world, Entity entity, double d0, double d1, double d2, float f, boolean flag, boolean flag1) {
         this.world = world;
         this.source = entity;
-        this.size = (float) Math.max(f, 0.0); // CraftBukkit - clamp bad values
+        this.size = (float) FastMath.max(f, 0.0); // CraftBukkit - clamp bad values
         this.posX = d0;
         this.posY = d1;
         this.posZ = d2;
@@ -65,7 +66,7 @@ public class Explosion {
                         double d0 = (double) ((float) k / 15.0F * 2.0F - 1.0F);
                         double d1 = (double) ((float) i / 15.0F * 2.0F - 1.0F);
                         double d2 = (double) ((float) j / 15.0F * 2.0F - 1.0F);
-                        double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                        double d3 = FastMath.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 
                         d0 /= d3;
                         d1 /= d3;

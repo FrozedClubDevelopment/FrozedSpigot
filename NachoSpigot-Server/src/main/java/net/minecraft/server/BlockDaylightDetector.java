@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
+
 import java.util.Random;
 
 public class BlockDaylightDetector extends BlockContainer {
@@ -23,7 +25,7 @@ public class BlockDaylightDetector extends BlockContainer {
     }
 
     public int a(IBlockAccess iblockaccess, BlockPosition blockposition, IBlockData iblockdata, EnumDirection enumdirection) {
-        return ((Integer) iblockdata.get(BlockDaylightDetector.POWER)).intValue();
+        return iblockdata.get(BlockDaylightDetector.POWER).intValue();
     }
 
     public void f(World world, BlockPosition blockposition) {
@@ -34,14 +36,14 @@ public class BlockDaylightDetector extends BlockContainer {
             float f1 = f < 3.1415927F ? 0.0F : 6.2831855F;
 
             f += (f1 - f) * 0.2F;
-            i = Math.round((float) i * MathHelper.cos(f));
+            i = FastMath.round((float) i * MathHelper.cos(f));
             i = MathHelper.clamp(i, 0, 15);
             if (this.b) {
                 i = 15 - i;
             }
 
-            if (((Integer) iblockdata.get(BlockDaylightDetector.POWER)).intValue() != i) {
-                i = org.bukkit.craftbukkit.event.CraftEventFactory.callRedstoneChange(world, blockposition.getX(), blockposition.getY(), blockposition.getZ(), ((Integer) iblockdata.get(POWER)), i).getNewCurrent(); // CraftBukkit - Call BlockRedstoneEvent
+            if (iblockdata.get(BlockDaylightDetector.POWER).intValue() != i) {
+                i = org.bukkit.craftbukkit.event.CraftEventFactory.callRedstoneChange(world, blockposition.getX(), blockposition.getY(), blockposition.getZ(), iblockdata.get(POWER), i).getNewCurrent(); // CraftBukkit - Call BlockRedstoneEvent
                 world.setTypeAndData(blockposition, iblockdata.set(BlockDaylightDetector.POWER, Integer.valueOf(i)), 3);
             }
 
@@ -97,10 +99,10 @@ public class BlockDaylightDetector extends BlockContainer {
     }
 
     public int toLegacyData(IBlockData iblockdata) {
-        return ((Integer) iblockdata.get(BlockDaylightDetector.POWER)).intValue();
+        return iblockdata.get(BlockDaylightDetector.POWER).intValue();
     }
 
     protected BlockStateList getStateList() {
-        return new BlockStateList(this, new IBlockState[] { BlockDaylightDetector.POWER});
+        return new BlockStateList(this, BlockDaylightDetector.POWER);
     }
 }

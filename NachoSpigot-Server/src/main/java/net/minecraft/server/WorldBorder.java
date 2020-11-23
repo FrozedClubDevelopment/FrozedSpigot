@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.google.common.collect.Lists;
+import net.jafama.FastMath;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -69,10 +71,10 @@ public class WorldBorder {
         double d3 = this.e() - d1;
         double d4 = d0 - this.b();
         double d5 = this.d() - d0;
-        double d6 = Math.min(d4, d5);
+        double d6 = FastMath.min(d4, d5);
 
-        d6 = Math.min(d6, d2);
-        return Math.min(d6, d3);
+        d6 = FastMath.min(d6, d2);
+        return FastMath.min(d6, d3);
     }
 
     public EnumWorldBorderState getState() {

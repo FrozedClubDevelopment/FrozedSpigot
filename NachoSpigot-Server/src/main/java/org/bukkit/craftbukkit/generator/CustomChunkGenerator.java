@@ -3,6 +3,7 @@ package org.bukkit.craftbukkit.generator;
 import java.util.List;
 import java.util.Random;
 
+import net.jafama.FastMath;
 import net.minecraft.server.*;
 
 import org.bukkit.block.Biome;
@@ -56,7 +57,7 @@ public class CustomChunkGenerator extends InternalChunkGenerator {
             chunk = new Chunk(this.world, x, z);
             
             ChunkSection[] csect = chunk.getSections();
-            int scnt = Math.min(csect.length, sections.length);
+            int scnt = FastMath.min(csect.length, sections.length);
             
             // Loop through returned sections
             for (int sec = 0; sec < scnt; sec++) {
@@ -85,7 +86,7 @@ public class CustomChunkGenerator extends InternalChunkGenerator {
                 chunk = new Chunk(this.world, x, z);
                 
                 ChunkSection[] csect = chunk.getSections();
-                int scnt = Math.min(csect.length, xbtypes.length);
+                int scnt = FastMath.min(csect.length, xbtypes.length);
                 
                 // Loop through returned sections
                 for (int sec = 0; sec < scnt; sec++) {
@@ -109,7 +110,7 @@ public class CustomChunkGenerator extends InternalChunkGenerator {
                     chunk = new Chunk(this.world, x, z);
                     
                     ChunkSection[] csect = chunk.getSections();
-                    int scnt = Math.min(csect.length, btypes.length);
+                    int scnt = FastMath.min(csect.length, btypes.length);
                     
                     for (int sec = 0; sec < scnt; sec++) {
                         if (btypes[sec] == null) {
@@ -134,7 +135,7 @@ public class CustomChunkGenerator extends InternalChunkGenerator {
                     
                     ChunkSection[] csect = chunk.getSections();
                     
-                    scnt = Math.min(scnt, csect.length);
+                    scnt = FastMath.min(scnt, csect.length);
                     // Loop through sections
                     for (int sec = 0; sec < scnt; sec++) {
                         ChunkSection cs = null; // Add sections when needed

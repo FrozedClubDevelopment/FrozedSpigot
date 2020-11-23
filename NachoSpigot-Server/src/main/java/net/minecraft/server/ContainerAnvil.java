@@ -2,6 +2,8 @@ package net.minecraft.server;
 
 import java.util.Iterator;
 import java.util.Map;
+
+import net.jafama.FastMath;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -141,7 +143,7 @@ public class ContainerAnvil extends Container {
                 int i1;
 
                 if (itemstack1.e() && itemstack1.getItem().a(itemstack, itemstack2)) {
-                    k = Math.min(itemstack1.h(), itemstack1.j() / 4);
+                    k = FastMath.min(itemstack1.h(), itemstack1.j() / 4);
                     if (k <= 0) {
                         this.g.setItem(0, (ItemStack) null);
                         this.a = 0;
@@ -152,7 +154,7 @@ public class ContainerAnvil extends Container {
                         i1 = itemstack1.h() - k;
                         itemstack1.setData(i1);
                         ++i;
-                        k = Math.min(itemstack1.h(), itemstack1.j() / 4);
+                        k = FastMath.min(itemstack1.h(), itemstack1.j() / 4);
                     }
 
                     this.k = l;
@@ -198,7 +200,7 @@ public class ContainerAnvil extends Container {
                                 ++l1;
                                 i2 = l1;
                             } else {
-                                i2 = Math.max(l1, j1);
+                                i2 = FastMath.max(l1, j1);
                             }
 
                             l1 = i2;
@@ -253,7 +255,7 @@ public class ContainerAnvil extends Container {
                                 }
 
                                 if (flag7) {
-                                    k2 = Math.max(1, k2 / 2);
+                                    k2 = FastMath.max(1, k2 / 2);
                                 }
 
                                 i += k2 * l1;

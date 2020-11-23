@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.craftbukkit.entity.CraftItem;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
@@ -265,7 +266,7 @@ public abstract class EntityHuman extends EntityLiving {
 
         if (itemstack.m() == EnumAnimation.EAT) {
             for (int j = 0; j < i; ++j) {
-                Vec3D vec3d = new Vec3D(((double) this.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+                Vec3D vec3d = new Vec3D(((double) this.random.nextFloat() - 0.5D) * 0.1D, FastMath.random() * 0.1D + 0.1D, 0.0D);
 
                 vec3d = vec3d.a(-this.pitch * 3.1415927F / 180.0F);
                 vec3d = vec3d.b(-this.yaw * 3.1415927F / 180.0F);
@@ -589,9 +590,9 @@ public abstract class EntityHuman extends EntityLiving {
                 entityitem.motY = (double) (-MathHelper.sin(this.pitch / 180.0F * 3.1415927F) * f + 0.1F);
                 f1 = this.random.nextFloat() * 3.1415927F * 2.0F;
                 f = 0.02F * this.random.nextFloat();
-                entityitem.motX += Math.cos((double) f1) * (double) f;
+                entityitem.motX += FastMath.cos((double) f1) * (double) f;
                 entityitem.motY += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
-                entityitem.motZ += Math.sin((double) f1) * (double) f;
+                entityitem.motZ += FastMath.sin((double) f1) * (double) f;
             }
 
             // CraftBukkit start - fire PlayerDropItemEvent
@@ -877,7 +878,7 @@ public abstract class EntityHuman extends EntityLiving {
             f = this.applyMagicModifier(damagesource, f);
             float f1 = f;
 
-            f = Math.max(f - this.getAbsorptionHearts(), 0.0F);
+            f = FastMath.max(f - this.getAbsorptionHearts(), 0.0F);
             this.setAbsorptionHearts(this.getAbsorptionHearts() - (f1 - f));
             if (f != 0.0F) {
                 this.applyExhaustion(damagesource.getExhaustionCost());
@@ -886,7 +887,7 @@ public abstract class EntityHuman extends EntityLiving {
                 this.setHealth(this.getHealth() - f);
                 this.bs().a(damagesource, f2, f);
                 if (f < 3.4028235E37F) {
-                    this.a(StatisticList.x, Math.round(f * 10.0F));
+                    this.a(StatisticList.x, FastMath.round(f * 10.0F));
                 }
 
             }
@@ -1080,7 +1081,7 @@ public abstract class EntityHuman extends EntityLiving {
                         }
 
                         if (entity instanceof EntityLiving) {
-                            this.a(StatisticList.w, Math.round(f * 10.0F));
+                            this.a(StatisticList.w, FastMath.round(f * 10.0F));
                             if (j > 0) {
                                 // CraftBukkit start - Call a combust event when somebody hits with a fire enchanted item
                                 EntityCombustByEntityEvent combustEvent = new EntityCombustByEntityEvent(this.getBukkitEntity(), entity.getBukkitEntity(), j * 4);
@@ -1138,7 +1139,7 @@ public abstract class EntityHuman extends EntityLiving {
                 return EntityHuman.EnumBedResult.NOT_POSSIBLE_NOW;
             }
 
-            if (Math.abs(this.locX - (double) blockposition.getX()) > 3.0D || Math.abs(this.locY - (double) blockposition.getY()) > 2.0D || Math.abs(this.locZ - (double) blockposition.getZ()) > 3.0D) {
+            if (FastMath.abs(this.locX - (double) blockposition.getX()) > 3.0D || FastMath.abs(this.locY - (double) blockposition.getY()) > 2.0D || FastMath.abs(this.locZ - (double) blockposition.getZ()) > 3.0D) {
                 return EntityHuman.EnumBedResult.TOO_FAR_AWAY;
             }
 

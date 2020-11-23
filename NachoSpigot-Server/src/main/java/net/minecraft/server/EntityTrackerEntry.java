@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import net.jafama.FastMath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,24 +62,21 @@ public class EntityTrackerEntry {
     }
 
     public boolean equals(Object object) {
-        if(object instanceof EntityTrackerEntry )
+        if (object instanceof EntityTrackerEntry)
             return ((EntityTrackerEntry) object).tracker.getId() == this.tracker.getId();
         return false;
     }
 
-    public int hashCode()
-    {
+    public int hashCode() {
         return this.tracker.getId();
     }
 
     /**
      * sends velocity, Location, rotation, and riding info.
      */
-    public void track(List<EntityHuman> list)
-    {
+    public void track(List<EntityHuman> list) {
         this.playerEntitiesUpdated = false;
-        if (!this.isMoving || this.tracker.distanceSqured(this.posX, this.posY, this.posZ) > 16.0D)
-        {
+        if (!this.isMoving || this.tracker.distanceSqured(this.posX, this.posY, this.posZ) > 16.0D) {
             this.posX = this.tracker.locX;
             this.posY = this.tracker.locY;
             this.posZ = this.tracker.locZ;
@@ -130,8 +129,8 @@ public class EntityTrackerEntry {
                 int k1 = j - this.yLoc;
                 int l1 = k - this.zLoc;
                 Object object = null;
-                boolean flag = Math.abs(j1) >= 4 || Math.abs(k1) >= 4 || Math.abs(l1) >= 4 || this.tickCount % 60 == 0;
-                boolean flag1 = Math.abs(l - this.yRot) >= 4 || Math.abs(i1 - this.xRot) >= 4;
+                boolean flag = FastMath.abs(j1) >= 4 || FastMath.abs(k1) >= 4 || FastMath.abs(l1) >= 4 || this.tickCount % 60 == 0;
+                boolean flag1 = FastMath.abs(l - this.yRot) >= 4 || FastMath.abs(i1 - this.xRot) >= 4;
 
                 if (this.tickCount > 0 || this.tracker instanceof EntityArrow) { // PaperSpigot - Moved up
                     // CraftBukkit start - Code moved from below
@@ -161,8 +160,7 @@ public class EntityTrackerEntry {
                         this.lastOnGround = this.tracker.onGround;
                         this.ticksSinceLastForcedTeleport = 0;
                         // CraftBukkit start - Refresh list of who can see a player before sending teleport packet
-                        if (this.tracker instanceof EntityPlayer)
-                        {
+                        if (this.tracker instanceof EntityPlayer) {
                             this.scanPlayers(new java.util.ArrayList(this.trackedPlayers));
 
                             // EDIT: Learning the list makes it thread safe... lol
@@ -238,7 +236,7 @@ public class EntityTrackerEntry {
             } else {
                 i = MathHelper.d(this.tracker.yaw * 256.0F / 360.0F);
                 j = MathHelper.d(this.tracker.pitch * 256.0F / 360.0F);
-                boolean flag2 = Math.abs(i - this.yRot) >= 4 || Math.abs(j - this.xRot) >= 4;
+                boolean flag2 = FastMath.abs(i - this.yRot) >= 4 || FastMath.abs(j - this.xRot) >= 4;
 
                 if (flag2) {
                     this.broadcast(new PacketPlayOutEntity.PacketPlayOutEntityLook(this.tracker.getId(), (byte) i, (byte) j, this.tracker.onGround));
@@ -254,7 +252,7 @@ public class EntityTrackerEntry {
             }
 
             i = MathHelper.d(this.tracker.getHeadRotation() * 256.0F / 360.0F);
-            if (Math.abs(i - this.lastHeadYaw) >= 4) {
+            if (FastMath.abs(i - this.lastHeadYaw) >= 4) {
                 this.broadcast(new PacketPlayOutEntityHeadRotation(this.tracker, (byte) i));
                 this.lastHeadYaw = i;
             }
@@ -299,7 +297,7 @@ public class EntityTrackerEntry {
 
         if (this.tracker instanceof EntityLiving) {
             AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).getAttributeMap();
-            Set set = attributemapserver.getAttributes();
+            Set<?> set = attributemapserver.getAttributes();
 
             if (!set.isEmpty()) {
                 // CraftBukkit start - Send scaled max health
@@ -307,7 +305,7 @@ public class EntityTrackerEntry {
                     ((EntityPlayer) this.tracker).getBukkitEntity().injectScaledMaxHealth(set, false);
                 }
                 // CraftBukkit end
-                this.broadcastIncludingSelf(new PacketPlayOutUpdateAttributes(this.tracker.getId(), set));
+                this.broadcastIncludingSelf(new PacketPlayOutUpdateAttributes(this.tracker.getId(), (Collection<AttributeInstance>) set));
             }
 
             set.clear();
@@ -316,33 +314,22 @@ public class EntityTrackerEntry {
     }
 
     public void broadcast(Packet packet) {
-        Iterator iterator = this.trackedPlayers.iterator();
-
-        while (iterator.hasNext())
-        {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
-
+        for (EntityPlayer entityplayer : this.trackedPlayers)
             entityplayer.playerConnection.sendPacket(packet);
-        }
 
     }
 
     public void broadcastIncludingSelf(Packet packet) {
         this.broadcast(packet);
-        if (this.tracker instanceof EntityPlayer) {
+        if (this.tracker instanceof EntityPlayer)
             ((EntityPlayer) this.tracker).playerConnection.sendPacket(packet);
-        }
 
     }
 
     public void a() {
-        Iterator iterator = this.trackedPlayers.iterator();
 
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
-
+        for (EntityPlayer entityplayer : this.trackedPlayers)
             entityplayer.d(this.tracker);
-        }
 
     }
 
@@ -354,11 +341,9 @@ public class EntityTrackerEntry {
 
     }
 
-    public void updatePlayer(EntityPlayer entityplayer)
-    {
-        org.spigotmc.AsyncCatcher.catchOp( "player tracker update"); // Spigot
-        if (entityplayer != this.tracker)
-        {
+    public void updatePlayer(EntityPlayer entityplayer) {
+        org.spigotmc.AsyncCatcher.catchOp("player tracker update"); // Spigot
+        if (entityplayer != this.tracker) {
             boolean isPlayerEntityTracked = this.trackedPlayers.contains(entityplayer);
             if (this.c(entityplayer)) {
                 if (!isPlayerEntityTracked && (this.e(entityplayer) || this.tracker.attachedToPlayer)) {
@@ -376,32 +361,27 @@ public class EntityTrackerEntry {
                     Packet packet = this.c();
 
                     entityplayer.playerConnection.sendPacket(packet);
-                    if (!this.tracker.getDataWatcher().d())
-                    {
+                    if (!this.tracker.getDataWatcher().d()) {
                         entityplayer.playerConnection.sendPacket(new PacketPlayOutEntityMetadata(this.tracker.getId(), this.tracker.getDataWatcher(), true));
                     }
 
                     NBTTagCompound nbttagcompound = this.tracker.getNBTTag();
 
-                    if (nbttagcompound != null)
-                    {
+                    if (nbttagcompound != null) {
                         entityplayer.playerConnection.sendPacket(new PacketPlayOutUpdateEntityNBT(this.tracker.getId(), nbttagcompound));
                     }
 
-                    if (this.tracker instanceof EntityLiving)
-                    {
+                    if (this.tracker instanceof EntityLiving) {
                         AttributeMapServer attributemapserver = (AttributeMapServer) ((EntityLiving) this.tracker).getAttributeMap();
-                        Collection collection = attributemapserver.c();
+                        Collection<AttributeInstance> collection = attributemapserver.c();
 
                         // CraftBukkit start - If sending own attributes send scaled health instead of current maximum health
-                        if (this.tracker.getId() == entityplayer.getId())
-                        {
+                        if (this.tracker.getId() == entityplayer.getId()) {
                             ((EntityPlayer) this.tracker).getBukkitEntity().injectScaledMaxHealth(collection, false);
                         }
                         // CraftBukkit end
 
-                        if (!collection.isEmpty())
-                        {
+                        if (!collection.isEmpty()) {
                             entityplayer.playerConnection.sendPacket(new PacketPlayOutUpdateAttributes(this.tracker.getId(), collection));
                         }
                     }
@@ -446,11 +426,8 @@ public class EntityTrackerEntry {
 
                     if (this.tracker instanceof EntityLiving) {
                         EntityLiving entityliving = (EntityLiving) this.tracker;
-                        Iterator iterator = entityliving.getEffects().iterator();
 
-                        while (iterator.hasNext()) {
-                            MobEffect mobeffect = (MobEffect) iterator.next();
-
+                        for (MobEffect mobeffect : entityliving.getEffects()) {
                             entityplayer.playerConnection.sendPacket(new PacketPlayOutEntityEffect(this.tracker.getId(), mobeffect));
                         }
                     }
@@ -470,8 +447,8 @@ public class EntityTrackerEntry {
         // CraftBukkit end
 
         return d0 >= (double) (-this.maxTrackingDistance) && d0 <= (double) this.maxTrackingDistance
-            && d1 >= (double) (-this.maxTrackingDistance) && d1 <= (double) this.maxTrackingDistance
-            && this.tracker.a(entityplayer);
+                && d1 >= (double) (-this.maxTrackingDistance) && d1 <= (double) this.maxTrackingDistance
+                && this.tracker.a(entityplayer);
     }
 
     private boolean e(EntityPlayer entityplayer) {
@@ -479,8 +456,8 @@ public class EntityTrackerEntry {
     }
 
     public void scanPlayers(List<EntityHuman> list) {
-        for (int i = 0; i < list.size(); ++i) {
-            this.updatePlayer((EntityPlayer) list.get(i));
+        for (EntityHuman entityHuman : list) {
+            this.updatePlayer((EntityPlayer) entityHuman);
         }
 
     }
@@ -596,7 +573,7 @@ public class EntityTrackerEntry {
     }
 
     public void clear(EntityPlayer entityplayer) {
-        org.spigotmc.AsyncCatcher.catchOp( "player tracker clear"); // Spigot
+        org.spigotmc.AsyncCatcher.catchOp("player tracker clear"); // Spigot
         if (this.trackedPlayers.contains(entityplayer)) {
             this.trackedPlayers.remove(entityplayer);
             entityplayer.d(this.tracker);

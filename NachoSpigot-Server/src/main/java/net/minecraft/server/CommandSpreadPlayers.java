@@ -3,6 +3,8 @@ package net.minecraft.server;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import net.jafama.FastMath;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -131,7 +133,7 @@ public class CommandSpreadPlayers extends CommandAbstract {
                         CommandSpreadPlayers.Location2D commandspreadplayers_location2d3 = acommandspreadplayers_location2d[l];
                         double d6 = commandspreadplayers_location2d2.a(commandspreadplayers_location2d3);
 
-                        d5 = Math.min(d6, d5);
+                        d5 = FastMath.min(d6, d5);
                         if (d6 < d0) {
                             ++j;
                             commandspreadplayers_location2d1.a += commandspreadplayers_location2d3.a - commandspreadplayers_location2d2.a;
@@ -209,7 +211,7 @@ public class CommandSpreadPlayers extends CommandAbstract {
                 if (commandspreadplayers_location2d != acommandspreadplayers_location2d[k]) {
                     double d2 = commandspreadplayers_location2d.a(acommandspreadplayers_location2d[k]);
 
-                    d1 = Math.min(d2, d1);
+                    d1 = FastMath.min(d2, d1);
                 }
             }
 
@@ -260,7 +262,7 @@ public class CommandSpreadPlayers extends CommandAbstract {
             double d0 = this.a - commandspreadplayers_location2d.a;
             double d1 = this.b - commandspreadplayers_location2d.b;
 
-            return Math.sqrt(d0 * d0 + d1 * d1);
+            return FastMath.sqrt(d0 * d0 + d1 * d1);
         }
 
         void a() {

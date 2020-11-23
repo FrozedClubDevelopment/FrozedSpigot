@@ -2,6 +2,7 @@ package org.spigotmc;
 
 import gnu.trove.set.TByteSet;
 import gnu.trove.set.hash.TByteHashSet;
+import net.jafama.FastMath;
 import net.minecraft.server.Block;
 import net.minecraft.server.BlockPosition;
 import net.minecraft.server.Blocks;
@@ -217,8 +218,8 @@ public class AntiXray
     private void updateNearbyBlocks(World world, final BlockPosition startPos, int radius, boolean updateSelf) {
         int startX = startPos.getX() - radius;
         int endX = startPos.getX() + radius;
-        int startY = Math.max(0, startPos.getY() - radius);
-        int endY = Math.min(255, startPos.getY() + radius);
+        int startY = FastMath.max(0, startPos.getY() - radius);
+        int endY = FastMath.min(255, startPos.getY() + radius);
         int startZ = startPos.getZ() - radius;
         int endZ = startPos.getZ() + radius;
         BlockPosition.MutableBlockPosition adjacent = new BlockPosition.MutableBlockPosition();

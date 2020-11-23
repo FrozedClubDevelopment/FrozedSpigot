@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory; // CraftBukkit
 
 public class EntityFallingBlock extends Entity {
@@ -179,7 +180,7 @@ public class EntityFallingBlock extends Entity {
                     Entity entity = (Entity) iterator.next();
 
                     CraftEventFactory.entityDamage = this; // CraftBukkit
-                    entity.damageEntity(damagesource, (float) Math.min(MathHelper.d((float) i * this.fallHurtAmount), this.fallHurtMax));
+                    entity.damageEntity(damagesource, (float) FastMath.min(MathHelper.d((float) i * this.fallHurtAmount), this.fallHurtMax));
                     CraftEventFactory.entityDamage = null; // CraftBukkit
                 }
 

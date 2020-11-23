@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.Random;
 
+import net.jafama.FastMath;
 import org.bukkit.util.Vector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class LocationTest {
      * => a = √(1/2) ∎
      * </pre>
      */
-    private static final double HALF_UNIT = Math.sqrt(1 / 2f);
+    private static final double HALF_UNIT = FastMath.sqrt(1 / 2f);
     /**
      * <pre>
      * a² + b² = c², c = √(1/2)
@@ -37,7 +38,7 @@ public class LocationTest {
      * => a = √(1/4) ∎
      * </pre>
      */
-    private static final double HALF_HALF_UNIT = Math.sqrt(1 / 4f);
+    private static final double HALF_HALF_UNIT = FastMath.sqrt(1 / 4f);
 
     @Parameters(name= "{index}: {0}")
     public static List<Object[]> data() {

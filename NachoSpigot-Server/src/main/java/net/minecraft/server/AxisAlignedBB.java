@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
+
 public class AxisAlignedBB {
     public final double a; public double getMinX() { return a; }
     public final double b; public double getMinY() { return b; }
@@ -10,12 +12,12 @@ public class AxisAlignedBB {
 
     public AxisAlignedBB(double x1, double y1, double z1, double x2, double y2, double z2)
     {
-        this.a = Math.min(x1, x2);
-        this.b = Math.min(y1, y2);
-        this.c = Math.min(z1, z2);
-        this.d = Math.max(x1, x2);
-        this.e = Math.max(y1, y2);
-        this.f = Math.max(z1, z2);
+        this.a = FastMath.min(x1, x2);
+        this.b = FastMath.min(y1, y2);
+        this.c = FastMath.min(z1, z2);
+        this.d = FastMath.max(x1, x2);
+        this.e = FastMath.max(y1, y2);
+        this.f = FastMath.max(z1, z2);
     }
 
     public AxisAlignedBB(BlockPosition var1, BlockPosition var2) {
@@ -66,22 +68,22 @@ public class AxisAlignedBB {
     }
 
     public AxisAlignedBB a(AxisAlignedBB var1) {
-        double var2 = Math.min(this.a, var1.a);
-        double var4 = Math.min(this.b, var1.b);
-        double var6 = Math.min(this.c, var1.c);
-        double var8 = Math.max(this.d, var1.d);
-        double var10 = Math.max(this.e, var1.e);
-        double var12 = Math.max(this.f, var1.f);
+        double var2 = FastMath.min(this.a, var1.a);
+        double var4 = FastMath.min(this.b, var1.b);
+        double var6 = FastMath.min(this.c, var1.c);
+        double var8 = FastMath.max(this.d, var1.d);
+        double var10 = FastMath.max(this.e, var1.e);
+        double var12 = FastMath.max(this.f, var1.f);
         return new AxisAlignedBB(var2, var4, var6, var8, var10, var12);
     }
 
     public static AxisAlignedBB a(double var0, double var2, double var4, double var6, double var8, double var10) {
-        double var12 = Math.min(var0, var6);
-        double var14 = Math.min(var2, var8);
-        double var16 = Math.min(var4, var10);
-        double var18 = Math.max(var0, var6);
-        double var20 = Math.max(var2, var8);
-        double var22 = Math.max(var4, var10);
+        double var12 = FastMath.min(var0, var6);
+        double var14 = FastMath.min(var2, var8);
+        double var16 = FastMath.min(var4, var10);
+        double var18 = FastMath.max(var0, var6);
+        double var20 = FastMath.max(var2, var8);
+        double var22 = FastMath.max(var4, var10);
         return new AxisAlignedBB(var12, var14, var16, var18, var20, var22);
     }
 

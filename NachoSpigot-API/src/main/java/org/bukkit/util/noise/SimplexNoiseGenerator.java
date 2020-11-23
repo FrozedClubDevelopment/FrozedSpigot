@@ -1,6 +1,8 @@
 package org.bukkit.util.noise;
 
 import java.util.Random;
+
+import net.jafama.FastMath;
 import org.bukkit.World;
 
 /**
@@ -12,8 +14,8 @@ import org.bukkit.World;
  * http://staffwww.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf</a>
  */
 public class SimplexNoiseGenerator extends PerlinNoiseGenerator {
-    protected static final double SQRT_3 = Math.sqrt(3);
-    protected static final double SQRT_5 = Math.sqrt(5);
+    protected static final double SQRT_3 = FastMath.sqrt(3);
+    protected static final double SQRT_5 = FastMath.sqrt(5);
     protected static final double F2 = 0.5 * (SQRT_3 - 1);
     protected static final double G2 = (3 - SQRT_3) / 6;
     protected static final double G22 = G2 * 2.0 - 1;

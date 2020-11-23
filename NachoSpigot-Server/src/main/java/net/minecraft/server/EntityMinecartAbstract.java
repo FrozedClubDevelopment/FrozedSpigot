@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.Location;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
@@ -416,7 +417,7 @@ public abstract class EntityMinecartAbstract extends Entity implements INamableT
         int[][] aint = EntityMinecartAbstract.matrix[blockminecarttrackabstract_enumtrackposition.a()];
         double d1 = (double) (aint[1][0] - aint[0][0]);
         double d2 = (double) (aint[1][2] - aint[0][2]);
-        double d3 = Math.sqrt(d1 * d1 + d2 * d2);
+        double d3 = FastMath.sqrt(d1 * d1 + d2 * d2);
         double d4 = this.motX * d1 + this.motZ * d2;
 
         if (d4 < 0.0D) {
@@ -424,7 +425,7 @@ public abstract class EntityMinecartAbstract extends Entity implements INamableT
             d2 = -d2;
         }
 
-        double d5 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
+        double d5 = FastMath.sqrt(this.motX * this.motX + this.motZ * this.motZ);
 
         if (d5 > 2.0D) {
             d5 = 2.0D;
@@ -440,8 +441,8 @@ public abstract class EntityMinecartAbstract extends Entity implements INamableT
         if (this.passenger instanceof EntityLiving) {
             d6 = (double) ((EntityLiving) this.passenger).ba;
             if (d6 > 0.0D) {
-                d7 = -Math.sin((double) (this.passenger.yaw * 3.1415927F / 180.0F));
-                d8 = Math.cos((double) (this.passenger.yaw * 3.1415927F / 180.0F));
+                d7 = -FastMath.sin((double) (this.passenger.yaw * 3.1415927F / 180.0F));
+                d8 = FastMath.cos((double) (this.passenger.yaw * 3.1415927F / 180.0F));
                 d9 = this.motX * this.motX + this.motZ * this.motZ;
                 if (d9 < 0.01D) {
                     this.motX += d7 * 0.1D;
@@ -452,7 +453,7 @@ public abstract class EntityMinecartAbstract extends Entity implements INamableT
         }
 
         if (flag1) {
-            d6 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
+            d6 = FastMath.sqrt(this.motX * this.motX + this.motZ * this.motZ);
             if (d6 < 0.03D) {
                 this.motX *= 0.0D;
                 this.motY *= 0.0D;
@@ -514,7 +515,7 @@ public abstract class EntityMinecartAbstract extends Entity implements INamableT
         if (vec3d1 != null && vec3d != null) {
             double d14 = (vec3d.b - vec3d1.b) * 0.05D;
 
-            d5 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
+            d5 = FastMath.sqrt(this.motX * this.motX + this.motZ * this.motZ);
             if (d5 > 0.0D) {
                 this.motX = this.motX / d5 * (d5 + d14);
                 this.motZ = this.motZ / d5 * (d5 + d14);
@@ -527,13 +528,13 @@ public abstract class EntityMinecartAbstract extends Entity implements INamableT
         int j = MathHelper.floor(this.locZ);
 
         if (i != blockposition.getX() || j != blockposition.getZ()) {
-            d5 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
+            d5 = FastMath.sqrt(this.motX * this.motX + this.motZ * this.motZ);
             this.motX = d5 * (double) (i - blockposition.getX());
             this.motZ = d5 * (double) (j - blockposition.getZ());
         }
 
         if (flag) {
-            double d15 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
+            double d15 = FastMath.sqrt(this.motX * this.motX + this.motZ * this.motZ);
 
             if (d15 > 0.01D) {
                 double d16 = 0.06D;
@@ -729,7 +730,7 @@ public abstract class EntityMinecartAbstract extends Entity implements INamableT
                             double d5 = entity.locZ - this.locZ;
                             Vec3D vec3d = (new Vec3D(d4, 0.0D, d5)).a();
                             Vec3D vec3d1 = (new Vec3D((double) MathHelper.cos(this.yaw * 3.1415927F / 180.0F), 0.0D, (double) MathHelper.sin(this.yaw * 3.1415927F / 180.0F))).a();
-                            double d6 = Math.abs(vec3d.b(vec3d1));
+                            double d6 = FastMath.abs(vec3d.b(vec3d1));
 
                             if (d6 < 0.800000011920929D) {
                                 return;

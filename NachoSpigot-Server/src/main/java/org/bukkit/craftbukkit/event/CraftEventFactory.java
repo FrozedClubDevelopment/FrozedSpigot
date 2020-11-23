@@ -9,6 +9,7 @@ import java.util.Map;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 
+import net.jafama.FastMath;
 import net.minecraft.server.*;
 
 import org.bukkit.Bukkit;
@@ -79,7 +80,7 @@ public class CraftEventFactory {
 
         BlockPosition chunkcoordinates = worldServer.getSpawn();
 
-        int distanceFromSpawn = Math.max(Math.abs(x - chunkcoordinates.getX()), Math.abs(z - chunkcoordinates.getY()));
+        int distanceFromSpawn = FastMath.max(FastMath.abs(x - chunkcoordinates.getX()), FastMath.abs(z - chunkcoordinates.getY()));
         return distanceFromSpawn > spawnSize;
     }
 

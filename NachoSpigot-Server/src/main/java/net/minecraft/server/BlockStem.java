@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import java.util.Iterator;
 import java.util.Random;
 
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory; // CraftBukkit
 
 public class BlockStem extends BlockPlant implements IBlockFragilePlantElement {
@@ -89,8 +90,8 @@ public class BlockStem extends BlockPlant implements IBlockFragilePlantElement {
     public void g(World world, BlockPosition blockposition, IBlockData iblockdata) {
         int i = ((Integer) iblockdata.get(BlockStem.AGE)).intValue() + MathHelper.nextInt(world.random, 2, 5);
 
-        // world.setTypeAndData(blockposition, iblockdata.set(BlockStem.AGE, Integer.valueOf(Math.min(7, i))), 2);
-        CraftEventFactory.handleBlockGrowEvent(world, blockposition.getX(), blockposition.getY(), blockposition.getZ(), this, Math.min(7, i)); // CraftBukkit
+        // world.setTypeAndData(blockposition, iblockdata.set(BlockStem.AGE, Integer.valueOf(FastMath.min(7, i))), 2);
+        CraftEventFactory.handleBlockGrowEvent(world, blockposition.getX(), blockposition.getY(), blockposition.getZ(), this, FastMath.min(7, i)); // CraftBukkit
     }
 
     public void j() {

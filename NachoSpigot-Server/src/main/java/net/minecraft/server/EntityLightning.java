@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.util.List;
 
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory; // CraftBukkit
 
 public class EntityLightning extends EntityWeather {
@@ -76,7 +77,7 @@ public class EntityLightning extends EntityWeather {
                 double deltaZ = this.locZ - player.locZ;
                 double distanceSquared = deltaX * deltaX + deltaZ * deltaZ;
                 if (distanceSquared > viewDistance * viewDistance) {
-                    double deltaLength = Math.sqrt(distanceSquared);
+                    double deltaLength = FastMath.sqrt(distanceSquared);
                     double relativeX = player.locX + (deltaX / deltaLength) * viewDistance;
                     double relativeZ = player.locZ + (deltaZ / deltaLength) * viewDistance;
                     player.playerConnection.sendPacket(new PacketPlayOutNamedSoundEffect("ambient.weather.thunder", relativeX, this.locY, relativeZ, 10000.0F, pitch));

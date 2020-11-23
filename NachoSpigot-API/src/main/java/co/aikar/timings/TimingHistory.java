@@ -25,6 +25,7 @@ package co.aikar.timings;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
+import net.jafama.FastMath;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -211,8 +212,8 @@ public class TimingHistory {
         public List export() {
             return toArray(
                 time,
-                Math.round(tps * 100D) / 100D,
-                Math.round(pingRecord.avg * 100D) / 100D,
+                FastMath.round(tps * 100D) / 100D,
+                FastMath.round(pingRecord.avg * 100D) / 100D,
                 fst.export(),
                 toArray(ticksRecord.timed,
                     ticksRecord.player,

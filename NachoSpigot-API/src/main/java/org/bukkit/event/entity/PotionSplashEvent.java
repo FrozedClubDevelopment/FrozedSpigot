@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import net.jafama.FastMath;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.ThrownPotion;
@@ -71,7 +72,7 @@ public class PotionSplashEvent extends ProjectileHitEvent implements Cancellable
         if (intensity <= 0.0) {
             affectedEntities.remove(entity);
         } else {
-            affectedEntities.put(entity, Math.min(intensity, 1.0));
+            affectedEntities.put(entity, FastMath.min(intensity, 1.0));
         }
     }
 

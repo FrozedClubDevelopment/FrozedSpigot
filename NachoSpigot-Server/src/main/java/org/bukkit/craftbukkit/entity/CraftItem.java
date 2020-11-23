@@ -1,5 +1,6 @@
 package org.bukkit.craftbukkit.entity;
 
+import net.jafama.FastMath;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityItem;
 
@@ -34,7 +35,7 @@ public class CraftItem extends CraftEntity implements Item {
     }
 
     public void setPickupDelay(int delay) {
-        item.pickupDelay = Math.min(delay, Short.MAX_VALUE);
+        item.pickupDelay = FastMath.min(delay, Short.MAX_VALUE);
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
@@ -193,7 +194,7 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
                     double distanceSquared = deltaX * deltaX + deltaZ * deltaZ;
                     if ( world.spigotConfig.witherSpawnSoundRadius > 0 && distanceSquared > world.spigotConfig.witherSpawnSoundRadius * world.spigotConfig.witherSpawnSoundRadius ) continue; // Spigot
                     if (distanceSquared > viewDistance * viewDistance) {
-                        double deltaLength = Math.sqrt(distanceSquared);
+                        double deltaLength = FastMath.sqrt(distanceSquared);
                         double relativeX = player.locX + (deltaX / deltaLength) * viewDistance;
                         double relativeZ = player.locZ + (deltaZ / deltaLength) * viewDistance;
                         player.playerConnection.sendPacket(new PacketPlayOutWorldEvent(1013, new BlockPosition((int) relativeX, (int) this.locY, (int) relativeZ), 0, true));

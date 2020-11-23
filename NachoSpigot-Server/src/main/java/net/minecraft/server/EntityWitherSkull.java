@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
 import org.bukkit.event.entity.ExplosionPrimeEvent; // CraftBukkit
 
 public class EntityWitherSkull extends EntityFireball {
@@ -27,7 +28,7 @@ public class EntityWitherSkull extends EntityFireball {
         Block block = iblockdata.getBlock();
 
         if (this.isCharged() && EntityWither.a(block)) {
-            f = Math.min(0.8F, f);
+            f = FastMath.min(0.8F, f);
         }
 
         return f;

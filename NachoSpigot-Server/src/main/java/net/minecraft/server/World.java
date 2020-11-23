@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import net.jafama.FastMath;
 import org.bukkit.Bukkit;
 import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.CraftServer;
@@ -2127,8 +2128,8 @@ public abstract class World implements IBlockAccess {
         double d0 = 1.0D / ((axisalignedbb.d - axisalignedbb.a) * 2.0D + 1.0D);
         double d1 = 1.0D / ((axisalignedbb.e - axisalignedbb.b) * 2.0D + 1.0D);
         double d2 = 1.0D / ((axisalignedbb.f - axisalignedbb.c) * 2.0D + 1.0D);
-        double d3 = (1.0D - Math.floor(1.0D / d0) * d0) / 2.0D;
-        double d4 = (1.0D - Math.floor(1.0D / d2) * d2) / 2.0D;
+        double d3 = (1.0D - FastMath.floor(1.0D / d0) * d0) / 2.0D;
+        double d4 = (1.0D - FastMath.floor(1.0D / d2) * d2) / 2.0D;
 
         if (d0 >= 0.0D && d1 >= 0.0D && d2 >= 0.0D) {
             int i = 0;
@@ -2411,12 +2412,12 @@ public abstract class World implements IBlockAccess {
         // Quick conditions to allow us to exist early
         if ( optimalChunks > 0  ) {
         // Keep chunks with growth inside of the optimal chunk range
-        int chunksPerPlayer = Math.min( 200, Math.max( 1, (int) ( ( ( optimalChunks - players.size() ) / (double) players.size() ) + 0.5 ) ) );
+        int chunksPerPlayer = FastMath.min( 200, FastMath.max( 1, (int) ( ( ( optimalChunks - players.size() ) / (double) players.size() ) + 0.5 ) ) );
         int randRange = 3 + chunksPerPlayer / 30;
         // Limit to normal tick radius - including view distance
         randRange = ( randRange > chunkTickRadius ) ? chunkTickRadius : randRange;
         // odds of growth happening vs growth happening in vanilla
-        this.growthOdds = this.modifiedOdds = Math.max( 35, Math.min( 100, ( ( chunksPerPlayer + 1 ) * 100F ) / 15F ) );
+        this.growthOdds = this.modifiedOdds = FastMath.max( 35, FastMath.min( 100, ( ( chunksPerPlayer + 1 ) * 100F ) / 15F ) );
         // Spigot end
         for (i = 0; i < this.players.size(); ++i) {
             entityhuman = (EntityHuman) this.players.get(i);

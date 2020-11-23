@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
 // CraftBukkit end
@@ -338,7 +339,7 @@ public class TileEntityChest extends TileEntityContainer implements IInventory {
             if (this.l < 0) {
                 this.l = 0;
             }
-            int oldPower = Math.max(0, Math.min(15, this.l)); // CraftBukkit - Get power before new viewer is added
+            int oldPower = FastMath.max(0, FastMath.min(15, this.l)); // CraftBukkit - Get power before new viewer is added
 
             ++this.l;
             if (this.world == null) return; // CraftBukkit
@@ -368,7 +369,7 @@ public class TileEntityChest extends TileEntityContainer implements IInventory {
 
             // CraftBukkit start - Call redstone event
             if (this.w() == Blocks.TRAPPED_CHEST) {
-                int newPower = Math.max(0, Math.min(15, this.l));
+                int newPower = FastMath.max(0, FastMath.min(15, this.l));
 
                 if (oldPower != newPower) {
                     org.bukkit.craftbukkit.event.CraftEventFactory.callRedstoneChange(world, position.getX(), position.getY(), position.getZ(), oldPower, newPower);
@@ -383,7 +384,7 @@ public class TileEntityChest extends TileEntityContainer implements IInventory {
 
     public void closeContainer(EntityHuman entityhuman) {
         if (!entityhuman.isSpectator() && this.w() instanceof BlockChest) {
-            int oldPower = Math.max(0, Math.min(15, this.l)); // CraftBukkit - Get power before new viewer is added
+            int oldPower = FastMath.max(0, FastMath.min(15, this.l)); // CraftBukkit - Get power before new viewer is added
             --this.l;
             if (this.world == null) return; // CraftBukkit
 
@@ -417,7 +418,7 @@ public class TileEntityChest extends TileEntityContainer implements IInventory {
 
             // CraftBukkit start - Call redstone event
             if (this.w() == Blocks.TRAPPED_CHEST) {
-                int newPower = Math.max(0, Math.min(15, this.l));
+                int newPower = FastMath.max(0, FastMath.min(15, this.l));
 
                 if (oldPower != newPower) {
                     org.bukkit.craftbukkit.event.CraftEventFactory.callRedstoneChange(world, position.getX(), position.getY(), position.getZ(), oldPower, newPower);

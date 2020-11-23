@@ -1,5 +1,7 @@
 package org.bukkit.util;
 
+import net.jafama.FastMath;
+
 /**
  * Utils for casting number types to other number types
  */
@@ -103,11 +105,11 @@ public final class NumberConversions {
     }
 
     public static boolean isFinite(double d) {
-        return Math.abs(d) <= Double.MAX_VALUE;
+        return FastMath.abs(d) <= Double.MAX_VALUE;
     }
 
     public static boolean isFinite(float f) {
-        return Math.abs(f) <= Float.MAX_VALUE;
+        return FastMath.abs(f) <= Float.MAX_VALUE;
     }
 
     public static void checkFinite(double d, String message) {

@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.google.common.collect.Lists;
+import net.jafama.FastMath;
+
 import java.util.ArrayList;
 
 public class RecipeArmorDye extends ShapelessRecipes implements IRecipe { // CraftBukkit - added extends
@@ -71,7 +73,7 @@ public class RecipeArmorDye extends ShapelessRecipes implements IRecipe { // Cra
                         f1 = (float) (l >> 8 & 255) / 255.0F;
                         float f2 = (float) (l & 255) / 255.0F;
 
-                        i = (int) ((float) i + Math.max(f, Math.max(f1, f2)) * 255.0F);
+                        i = (int) ((float) i + FastMath.max(f, FastMath.max(f1, f2)) * 255.0F);
                         aint[0] = (int) ((float) aint[0] + f * 255.0F);
                         aint[1] = (int) ((float) aint[1] + f1 * 255.0F);
                         aint[2] = (int) ((float) aint[2] + f2 * 255.0F);
@@ -87,7 +89,7 @@ public class RecipeArmorDye extends ShapelessRecipes implements IRecipe { // Cra
                     int k1 = (int) (afloat[1] * 255.0F);
 
                     i1 = (int) (afloat[2] * 255.0F);
-                    i += Math.max(j1, Math.max(k1, i1));
+                    i += FastMath.max(j1, FastMath.max(k1, i1));
                     aint[0] += j1;
                     aint[1] += k1;
                     aint[2] += i1;
@@ -104,7 +106,7 @@ public class RecipeArmorDye extends ShapelessRecipes implements IRecipe { // Cra
 
             l = aint[2] / j;
             f = (float) i / (float) j;
-            f1 = (float) Math.max(k, Math.max(l1, l));
+            f1 = (float) FastMath.max(k, FastMath.max(l1, l));
             k = (int) ((float) k * f / f1);
             l1 = (int) ((float) l1 * f / f1);
             l = (int) ((float) l * f / f1);

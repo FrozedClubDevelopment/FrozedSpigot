@@ -3,6 +3,7 @@ package net.minecraft.server;
 // CraftBukkit start
 import java.util.List;
 
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
 // CraftBukkit end
@@ -112,7 +113,7 @@ public class InventoryLargeChest implements ITileInventory {
     }
 
     public int getMaxStackSize() {
-        return Math.min(this.left.getMaxStackSize(), this.right.getMaxStackSize()); // CraftBukkit - check both sides
+        return FastMath.min(this.left.getMaxStackSize(), this.right.getMaxStackSize()); // CraftBukkit - check both sides
     }
 
     public void update() {

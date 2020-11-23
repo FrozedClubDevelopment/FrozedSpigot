@@ -3,6 +3,7 @@ package org.bukkit;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.jafama.FastMath;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.util.NumberConversions;
@@ -252,12 +253,12 @@ public class Location implements Cloneable, ConfigurationSerializable {
         double rotX = this.getYaw();
         double rotY = this.getPitch();
 
-        vector.setY(-Math.sin(Math.toRadians(rotY)));
+        vector.setY(-FastMath.sin(FastMath.toRadians(rotY)));
 
-        double xz = Math.cos(Math.toRadians(rotY));
+        double xz = FastMath.cos(FastMath.toRadians(rotY));
 
-        vector.setX(-xz * Math.sin(Math.toRadians(rotX)));
-        vector.setZ(xz * Math.cos(Math.toRadians(rotX)));
+        vector.setX(-xz * FastMath.sin(FastMath.toRadians(rotX)));
+        vector.setZ(xz * FastMath.cos(FastMath.toRadians(rotX)));
 
         return vector;
     }
@@ -278,7 +279,7 @@ public class Location implements Cloneable, ConfigurationSerializable {
          * x = -Opp
          * z = Adj
          */
-        final double _2PI = 2 * Math.PI;
+        final double _2PI = 2 * FastMath.PI;
         final double x = vector.getX();
         final double z = vector.getZ();
 
@@ -287,13 +288,13 @@ public class Location implements Cloneable, ConfigurationSerializable {
             return this;
         }
 
-        double theta = Math.atan2(-x, z);
-        yaw = (float) Math.toDegrees((theta + _2PI) % _2PI);
+        double theta = FastMath.atan2(-x, z);
+        yaw = (float) FastMath.toDegrees((theta + _2PI) % _2PI);
 
         double x2 = NumberConversions.square(x);
         double z2 = NumberConversions.square(z);
-        double xz = Math.sqrt(x2 + z2);
-        pitch = (float) Math.toDegrees(Math.atan(-vector.getY() / xz));
+        double xz = FastMath.sqrt(x2 + z2);
+        pitch = (float) FastMath.toDegrees(FastMath.atan(-vector.getY() / xz));
 
         return this;
     }
@@ -409,7 +410,7 @@ public class Location implements Cloneable, ConfigurationSerializable {
      * @return the magnitude
      */
     public double length() {
-        return Math.sqrt(NumberConversions.square(x) + NumberConversions.square(y) + NumberConversions.square(z));
+        return FastMath.sqrt(NumberConversions.square(x) + NumberConversions.square(y) + NumberConversions.square(z));
     }
 
     /**
@@ -436,7 +437,7 @@ public class Location implements Cloneable, ConfigurationSerializable {
      * @throws IllegalArgumentException for differing worlds
      */
     public double distance(Location o) {
-        return Math.sqrt(distanceSquared(o));
+        return FastMath.sqrt(distanceSquared(o));
     }
 
     /**

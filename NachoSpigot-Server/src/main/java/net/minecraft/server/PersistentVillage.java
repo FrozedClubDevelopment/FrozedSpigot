@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.google.common.collect.Lists;
+import net.jafama.FastMath;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -43,10 +45,8 @@ public class PersistentVillage extends PersistentBase {
 
     public void tick() {
         ++this.time;
-        Iterator var1 = this.villages.iterator();
 
-        while(var1.hasNext()) {
-            Village var2 = (Village)var1.next();
+        for (Village var2 : this.villages) {
             var2.a(this.time);
         }
 
@@ -79,14 +79,12 @@ public class PersistentVillage extends PersistentBase {
     public Village getClosestVillage(BlockPosition var1, int var2) {
         Village var3 = null;
         double var4 = 3.4028234663852886E38D;
-        Iterator var6 = this.villages.iterator();
 
-        while(var6.hasNext()) {
-            Village var7 = (Village)var6.next();
+        for (Village var7 : this.villages) {
             double var8 = var7.a().i(var1);
             if (var8 < var4) {
-                float var10 = (float)(var2 + var7.b());
-                if (var8 <= (double)(var10 * var10)) {
+                float var10 = (float) (var2 + var7.b());
+                if (var8 <= (double) (var10 * var10)) {
                     var3 = var7;
                     var4 = var8;
                 }
@@ -98,21 +96,21 @@ public class PersistentVillage extends PersistentBase {
 
     private void f() {
         if (!this.c.isEmpty()) {
-            this.b((BlockPosition)this.c.remove(0));
+            this.b(this.c.remove(0));
         }
     }
 
     private void g() {
-        for(int var1 = 0; var1 < this.d.size(); ++var1) {
-            VillageDoor var2 = (VillageDoor)this.d.get(var1);
-            Village var3 = this.getClosestVillage(var2.d(), 32);
+        for (VillageDoor villageDoor : this.d) {
+
+            Village var3 = this.getClosestVillage(((VillageDoor) villageDoor).d(), 32);
             if (var3 == null) {
                 var3 = new Village(this.world);
                 this.villages.add(var3);
                 this.c();
             }
 
-            var3.a(var2);
+            var3.a((VillageDoor) villageDoor);
         }
 
         this.d.clear();
@@ -163,7 +161,7 @@ public class PersistentVillage extends PersistentBase {
             }
 
             var3 = (VillageDoor)var2.next();
-        } while(var3.d().getX() != var1.getX() || var3.d().getZ() != var1.getZ() || Math.abs(var3.d().getY() - var1.getY()) > 1);
+        } while(var3.d().getX() != var1.getX() || var3.d().getZ() != var1.getZ() || FastMath.abs(var3.d().getY() - var1.getY()) > 1);
 
         return var3;
     }

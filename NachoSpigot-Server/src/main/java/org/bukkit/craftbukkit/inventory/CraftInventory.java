@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
+import net.jafama.FastMath;
 import net.minecraft.server.IHopper;
 import net.minecraft.server.IInventory;
 import net.minecraft.server.InventoryCrafting;
@@ -52,7 +53,7 @@ public class CraftInventory implements Inventory {
         ItemStack[] items = new ItemStack[getSize()];
         net.minecraft.server.ItemStack[] mcItems = getInventory().getContents();
 
-        int size = Math.min(items.length, mcItems.length);
+        int size = FastMath.min(items.length, mcItems.length);
         for (int i = 0; i < size; i++) {
             items[i] = mcItems[i] == null ? null : CraftItemStack.asCraftMirror(mcItems[i]);
         }

@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.google.common.collect.Lists;
+import net.jafama.FastMath;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -635,7 +637,7 @@ public class WorldGenRegistration {
                     for (int i1 = this.l.a; i1 <= this.l.d; ++i1) {
                         blockposition_mutableblockposition.c(i1, 64, l);
                         if (structureboundingbox.b((BaseBlockPosition) blockposition_mutableblockposition)) {
-                            j += Math.max(world.r(blockposition_mutableblockposition).getY(), world.worldProvider.getSeaLevel());
+                            j += FastMath.max(world.r(blockposition_mutableblockposition).getY(), world.worldProvider.getSeaLevel());
                             ++k;
                         }
                     }

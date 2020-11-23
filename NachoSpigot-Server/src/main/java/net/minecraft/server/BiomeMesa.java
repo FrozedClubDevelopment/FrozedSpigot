@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -62,14 +64,14 @@ public class BiomeMesa extends BiomeBase {
         if (this.aI) {
             k = (i & -16) + (j & 15);
             l = (j & -16) + (i & 15);
-            double d2 = Math.min(Math.abs(d0), this.aF.a((double) k * 0.25D, (double) l * 0.25D));
+            double d2 = FastMath.min(FastMath.abs(d0), this.aF.a((double) k * 0.25D, (double) l * 0.25D));
 
             if (d2 > 0.0D) {
                 double d3 = 0.001953125D;
-                double d4 = Math.abs(this.aG.a((double) k * d3, (double) l * d3));
+                double d4 = FastMath.abs(this.aG.a((double) k * d3, (double) l * d3));
 
                 d1 = d2 * d2 * 2.5D;
-                double d5 = Math.ceil(d4 * 50.0D) + 14.0D;
+                double d5 = FastMath.ceil(d4 * 50.0D) + 14.0D;
 
                 if (d1 > d5) {
                     d1 = d5;
@@ -85,7 +87,7 @@ public class BiomeMesa extends BiomeBase {
         IBlockData iblockdata = Blocks.STAINED_HARDENED_CLAY.getBlockData();
         IBlockData iblockdata1 = this.al;
         int j1 = (int) (d0 / 3.0D + 3.0D + random.nextDouble() * 0.25D);
-        boolean flag = Math.cos(d0 / 3.0D * 3.141592653589793D) > 0.0D;
+        boolean flag = FastMath.cos(d0 / 3.0D * 3.141592653589793D) > 0.0D;
         int k1 = -1;
         boolean flag1 = false;
 
@@ -118,7 +120,7 @@ public class BiomeMesa extends BiomeBase {
                             iblockdata = Blocks.WATER.getBlockData();
                         }
 
-                        k1 = j1 + Math.max(0, l1 - i1);
+                        k1 = j1 + FastMath.max(0, l1 - i1);
                         if (l1 >= i1 - 1) {
                             if (this.aJ && l1 > 86 + j1 * 2) {
                                 if (flag) {

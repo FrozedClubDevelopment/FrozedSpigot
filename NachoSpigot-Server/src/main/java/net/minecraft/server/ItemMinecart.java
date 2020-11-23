@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+import net.jafama.FastMath;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.block.BlockDispenseEvent;
 // CraftBukkit end
@@ -14,7 +15,7 @@ public class ItemMinecart extends Item {
             EnumDirection enumdirection = BlockDispenser.b(isourceblock.f());
             World world = isourceblock.getWorld();
             double d0 = isourceblock.getX() + (double) enumdirection.getAdjacentX() * 1.125D;
-            double d1 = Math.floor(isourceblock.getY()) + (double) enumdirection.getAdjacentY();
+            double d1 = FastMath.floor(isourceblock.getY()) + (double) enumdirection.getAdjacentY();
             double d2 = isourceblock.getZ() + (double) enumdirection.getAdjacentZ() * 1.125D;
             BlockPosition blockposition = isourceblock.getBlockPosition().shift(enumdirection);
             IBlockData iblockdata = world.getType(blockposition);

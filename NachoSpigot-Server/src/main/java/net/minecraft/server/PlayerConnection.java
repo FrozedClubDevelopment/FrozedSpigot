@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
+
+import net.jafama.FastMath;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -223,7 +225,7 @@ public class PlayerConnection implements PacketListenerPlayIn, IUpdatePlayerList
         }
         else
             {
-            creativeSlotCount = Math.max(creativeSlotCount--, 0);
+            creativeSlotCount = FastMath.max(creativeSlotCount--, 0);
             windowClickCount = 0;
             WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
@@ -277,8 +279,8 @@ public class PlayerConnection implements PacketListenerPlayIn, IUpdatePlayerList
                 }
 
                 // Prevent 40 event-calls for less than a single pixel of movement >.>
-                double delta = Math.pow(this.lastPosX - to.getX(), 2) + Math.pow(this.lastPosY - to.getY(), 2) + Math.pow(this.lastPosZ - to.getZ(), 2);
-                float deltaAngle = Math.abs(this.lastYaw - to.getYaw()) + Math.abs(this.lastPitch - to.getPitch());
+                double delta = FastMath.pow(this.lastPosX - to.getX(), 2) + FastMath.pow(this.lastPosY - to.getY(), 2) + FastMath.pow(this.lastPosZ - to.getZ(), 2);
+                float deltaAngle = FastMath.abs(this.lastYaw - to.getYaw()) + FastMath.abs(this.lastPitch - to.getPitch());
 
                 if ((delta > 1f / 256 || deltaAngle > 10f) && (this.checkMovement && !this.player.dead))
                 {
@@ -402,7 +404,7 @@ public class PlayerConnection implements PacketListenerPlayIn, IUpdatePlayerList
                         d7 = packetplayinflying.a();
                         d8 = packetplayinflying.b();
                         d9 = packetplayinflying.c();
-                        if (Math.abs(packetplayinflying.a()) > 3.0E7D || Math.abs(packetplayinflying.c()) > 3.0E7D) {
+                        if (FastMath.abs(packetplayinflying.a()) > 3.0E7D || FastMath.abs(packetplayinflying.c()) > 3.0E7D) {
                             this.disconnect("Illegal position");
                             return;
                         }
@@ -1574,8 +1576,8 @@ public class PlayerConnection implements PacketListenerPlayIn, IUpdatePlayerList
                                     } else if (slot.isAllowed(cursor)) {
                                         if (clickedItem.doMaterialsMatch(cursor) && ItemStack.equals(clickedItem, cursor)) {
                                             int toPlace = packetplayinwindowclick.c() == 0 ? cursor.count : 1;
-                                            toPlace = Math.min(toPlace, clickedItem.getMaxStackSize() - clickedItem.count);
-                                            toPlace = Math.min(toPlace, slot.inventory.getMaxStackSize() - clickedItem.count);
+                                            toPlace = FastMath.min(toPlace, clickedItem.getMaxStackSize() - clickedItem.count);
+                                            toPlace = FastMath.min(toPlace, slot.inventory.getMaxStackSize() - clickedItem.count);
                                             if (toPlace == 1) {
                                                 action = InventoryAction.PLACE_ONE;
                                             } else if (toPlace == cursor.count) {

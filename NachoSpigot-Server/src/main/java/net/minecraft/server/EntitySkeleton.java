@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import java.util.Calendar;
 
+import net.jafama.FastMath;
 import org.bukkit.event.entity.EntityCombustEvent; // CraftBukkit
 
 public class EntitySkeleton extends EntityMonster implements IRangedEntity {
@@ -72,7 +73,7 @@ public class EntitySkeleton extends EntityMonster implements IRangedEntity {
     public void m() {
         if (this.world.w() && !this.world.isClientSide) {
             float f = this.c(1.0F);
-            BlockPosition blockposition = new BlockPosition(this.locX, (double) Math.round(this.locY), this.locZ);
+            BlockPosition blockposition = new BlockPosition(this.locX, (double) FastMath.round(this.locY), this.locZ);
 
             if (f > 0.5F && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.i(blockposition)) {
                 boolean flag = true;

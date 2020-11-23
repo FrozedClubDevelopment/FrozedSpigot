@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import net.jafama.FastMath;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -130,7 +131,7 @@ public class SpreadPlayersCommand extends VanillaCommand {
                         Location loc3 = locations[l];
                         double dis = loc2.distanceSquared(loc3);
 
-                        max = Math.min(dis, max);
+                        max = FastMath.min(dis, max);
                         if (dis < distance) {
                             ++j;
                             loc1.add(loc3.getX() - loc2.getX(), 0, 0);
@@ -142,7 +143,7 @@ public class SpreadPlayersCommand extends VanillaCommand {
                 if (j > 0) {
                     loc2.setX(loc2.getX() / j);
                     loc2.setZ(loc2.getZ() / j);
-                    double d7 = Math.sqrt(loc1.getX() * loc1.getX() + loc1.getZ() * loc1.getZ());
+                    double d7 = FastMath.sqrt(loc1.getX() * loc1.getX() + loc1.getZ() * loc1.getZ());
 
                     if (d7 > 0.0D) {
                         loc1.setX(loc1.getX() / d7);
@@ -225,13 +226,13 @@ public class SpreadPlayersCommand extends VanillaCommand {
                 location = locations[i++];
             }
 
-            player.teleport(new Location(world, Math.floor(location.getX()) + 0.5D, world.getHighestBlockYAt((int) location.getX(), (int) location.getZ()), Math.floor(location.getZ()) + 0.5D));
+            player.teleport(new Location(world, FastMath.floor(location.getX()) + 0.5D, world.getHighestBlockYAt((int) location.getX(), (int) location.getZ()), FastMath.floor(location.getZ()) + 0.5D));
             double value = Double.MAX_VALUE;
 
             for (int k = 0; k < locations.length; ++k) {
                 if (location != locations[k]) {
                     double d = location.distanceSquared(locations[k]);
-                    value = Math.min(d, value);
+                    value = FastMath.min(d, value);
                 }
             }
 

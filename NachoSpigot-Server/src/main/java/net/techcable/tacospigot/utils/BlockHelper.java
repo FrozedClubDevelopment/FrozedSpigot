@@ -12,6 +12,7 @@ import java.util.stream.StreamSupport;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.AbstractIterator;
 
+import net.jafama.FastMath;
 import net.minecraft.server.Block;
 import net.minecraft.server.BlockPosition;
 import net.minecraft.server.World;
@@ -34,8 +35,8 @@ public class BlockHelper {
         // Make sure to keep this below the inline threshold!!!
         int startX = pos.getX() - radius;
         int endX = pos.getX() + radius;
-        int startY = Math.max(0, pos.getY() - radius);
-        int endY = Math.min(255, pos.getY() + radius);
+        int startY = FastMath.max(0, pos.getY() - radius);
+        int endY = FastMath.min(255, pos.getY() + radius);
         int startZ = pos.getZ() - radius;
         int endZ = pos.getZ() + radius;
         BlockPosition.MutableBlockPosition adjacent = new BlockPosition.MutableBlockPosition();

@@ -1,5 +1,6 @@
 package org.bukkit.craftbukkit.inventory;
 
+import net.jafama.FastMath;
 import net.minecraft.server.ITileEntityContainer;
 import net.minecraft.server.ITileInventory;
 import org.bukkit.block.DoubleChest;
@@ -47,10 +48,10 @@ public class CraftInventoryDoubleChest extends CraftInventory implements DoubleC
             throw new IllegalArgumentException("Invalid inventory size; expected " + getInventory().getContents().length + " or less");
         }
         ItemStack[] leftItems = new ItemStack[left.getSize()], rightItems = new ItemStack[right.getSize()];
-        System.arraycopy(items, 0, leftItems, 0, Math.min(left.getSize(),items.length));
+        System.arraycopy(items, 0, leftItems, 0, FastMath.min(left.getSize(),items.length));
         left.setContents(leftItems);
         if (items.length >= left.getSize()) {
-            System.arraycopy(items, left.getSize(), rightItems, 0, Math.min(right.getSize(), items.length - left.getSize()));
+            System.arraycopy(items, left.getSize(), rightItems, 0, FastMath.min(right.getSize(), items.length - left.getSize()));
             right.setContents(rightItems);
         }
     }

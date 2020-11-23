@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import net.jafama.FastMath;
 import org.bukkit.event.entity.EntityInteractEvent; // CraftBukkit
 
 public class BlockPressurePlateWeighted extends BlockPressurePlateAbstract {
@@ -13,19 +14,16 @@ public class BlockPressurePlateWeighted extends BlockPressurePlateAbstract {
 
     protected BlockPressurePlateWeighted(Material material, int i, MaterialMapColor materialmapcolor) {
         super(material, materialmapcolor);
-        this.j(this.blockStateList.getBlockData().set(BlockPressurePlateWeighted.POWER, Integer.valueOf(0)));
+        this.j(this.blockStateList.getBlockData().set(BlockPressurePlateWeighted.POWER, 0));
         this.weight = i;
     }
 
     protected int f(World world, BlockPosition blockposition) {
         // CraftBukkit start
-        //int i = Math.min(world.a(Entity.class, this.a(blockposition)).size(), this.b);
+        //int i = FastMath.min(world.a(Entity.class, this.a(blockposition)).size(), this.b);
         int i = 0;
-        java.util.Iterator iterator = world.a(Entity.class, this.getBoundingBox(blockposition)).iterator();
 
-        while (iterator.hasNext()) {
-            Entity entity = (Entity) iterator.next();
-
+        for (Entity entity : world.a(Entity.class, this.getBoundingBox(blockposition))) {
             org.bukkit.event.Cancellable cancellable;
 
             if (entity instanceof EntityHuman) {
@@ -41,11 +39,11 @@ public class BlockPressurePlateWeighted extends BlockPressurePlateAbstract {
             }
         }
 
-        i = Math.min(i, this.weight);
+        i = FastMath.min(i, this.weight);
         // CraftBukkit end
 
         if (i > 0) {
-            float f = (float) Math.min(this.weight, i) / (float) this.weight;
+            float f = (float) FastMath.min(this.weight, i) / (float) this.weight;
 
             return MathHelper.f(f * 15.0F);
         } else {
@@ -54,7 +52,7 @@ public class BlockPressurePlateWeighted extends BlockPressurePlateAbstract {
     }
 
     protected int e(IBlockData iblockdata) {
-        return ((Integer) iblockdata.get(BlockPressurePlateWeighted.POWER)).intValue();
+        return iblockdata.get(BlockPressurePlateWeighted.POWER);
     }
 
     protected IBlockData a(IBlockData iblockdata, int i) {
@@ -70,10 +68,10 @@ public class BlockPressurePlateWeighted extends BlockPressurePlateAbstract {
     }
 
     public int toLegacyData(IBlockData iblockdata) {
-        return ((Integer) iblockdata.get(BlockPressurePlateWeighted.POWER)).intValue();
+        return iblockdata.get(BlockPressurePlateWeighted.POWER).intValue();
     }
 
     protected BlockStateList getStateList() {
-        return new BlockStateList(this, new IBlockState[] { BlockPressurePlateWeighted.POWER});
+        return new BlockStateList(this, BlockPressurePlateWeighted.POWER);
     }
 }

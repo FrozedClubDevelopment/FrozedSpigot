@@ -2,6 +2,8 @@ package net.minecraft.server;
 
 import java.util.Iterator;
 import java.util.List;
+
+import net.jafama.FastMath;
 import org.apache.commons.lang3.Validate;
 
 // CraftBukkit start
@@ -136,8 +138,8 @@ public abstract class EntityHanging extends Entity {
         if (!this.world.getCubes(this, this.getBoundingBox()).isEmpty()) {
             return false;
         } else {
-            int i = Math.max(1, this.l() / 16);
-            int j = Math.max(1, this.m() / 16);
+            int i = FastMath.max(1, this.l() / 16);
+            int j = FastMath.max(1, this.m() / 16);
             BlockPosition blockposition = this.blockPosition.shift(this.direction.opposite());
             EnumDirection enumdirection = this.direction.f();
 

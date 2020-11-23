@@ -1,5 +1,7 @@
 package org.bukkit.craftbukkit;
 
+import net.jafama.FastMath;
+
 /**
  * Credits for this class goes to user aioobe on stackoverflow.com
  * Source: http://stackoverflow.com/questions/4454630/j2me-calculate-the-the-distance-between-2-latitude-and-longitude
@@ -42,6 +44,6 @@ public class TrigMath {
         if (arg1 + arg2 == arg1)
             return arg1 >= 0 ? PIO2 : -PIO2;
         arg1 = atan(arg1 / arg2);
-        return arg2 < 0 ? arg1 <= 0 ? arg1 + Math.PI : arg1 - Math.PI : arg1;
+        return arg2 < 0 ? arg1 <= 0 ? arg1 + FastMath.PI : arg1 - FastMath.PI : arg1;
     }
 }

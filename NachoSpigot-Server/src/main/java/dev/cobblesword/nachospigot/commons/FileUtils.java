@@ -2,11 +2,9 @@ package dev.cobblesword.nachospigot.commons;
 
 import java.io.*;
 
-public class FileUtils
-{
+public class FileUtils {
 
-    public static void toFile(Object object, File file)
-    {
+    public static void toFile(Object object, File file) {
         final String jsonContent = GsonUtils.getGsonPretty().toJson(object);
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
@@ -15,11 +13,9 @@ public class FileUtils
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public static <T> T toObject(File file, Class<T> clazz)
-    {
+    public static <T> T toObject(File file, Class<T> clazz) {
         String line;
         StringBuilder jsonContent = new StringBuilder();
         BufferedReader objReader = null;
@@ -28,7 +24,7 @@ public class FileUtils
             while ((line = objReader.readLine()) != null) {
                 jsonContent.append(line);
             }
-            return (T) GsonUtils.getGsonPretty().fromJson(jsonContent.toString(), clazz);
+            return GsonUtils.getGsonPretty().fromJson(jsonContent.toString(), clazz);
         } catch (IOException e) {
             e.printStackTrace();
         }

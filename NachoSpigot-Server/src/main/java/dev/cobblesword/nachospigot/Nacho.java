@@ -12,26 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Nacho {
+
     private static Nacho INSTANCE;
+
     private static final File CONFIG_FILE = new File("nacho.json");
-    private NachoConfig config;
     public List<PacketListener> packetListeners = new ArrayList<>();
+    private NachoConfig config;
 
     public Nacho() {
         INSTANCE = this;
 
         this.config = new NachoConfig();
-        while (!CONFIG_FILE.exists())
+        while (!CONFIG_FILE.exists()) {
             FileUtils.toFile(this.config, CONFIG_FILE);
-        this.config = FileUtils.toObject(CONFIG_FILE, NachoConfig.class);
-    }
+        }
 
-    public void reloadConfig() {
         this.config = FileUtils.toObject(CONFIG_FILE, NachoConfig.class);
     }
 
     public static Nacho get() {
         return INSTANCE;
+    }
+
+    public void reloadConfig() {
+        this.config = FileUtils.toObject(CONFIG_FILE, NachoConfig.class);
     }
 
     public NachoConfig getConfig() {
@@ -49,7 +53,7 @@ public class Nacho {
 
     public void registerPacketListener(PacketListener packetListener) {
         this.packetListeners.add(packetListener);
-        System.out.println("NachoSpigot ] Register PacketListener @ " + packetListener.getClass().getName());
+        System.out.println("[FrozedSpigot] Register PacketListener @ " + packetListener.getClass().getName());
     }
 
     public List<PacketListener> getPacketListeners() {

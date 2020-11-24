@@ -3,22 +3,19 @@ package dev.cobblesword.nachospigot.protocol;
 import io.netty.channel.ChannelException;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import net.minecraft.server.*;
 
-public class MinecraftPipeline extends ChannelInitializer<SocketChannel>
-{
+public class MinecraftPipeline extends ChannelInitializer<SocketChannel> {
+
     private ServerConnection serverConnection;
 
-    public MinecraftPipeline(ServerConnection serverConnection)
-    {
+    public MinecraftPipeline(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
     }
 
-    protected void initChannel(SocketChannel channel) throws Exception
-    {
+    protected void initChannel(SocketChannel channel) throws Exception {
         try {
             channel.config().setOption(ChannelOption.TCP_NODELAY, true);
         } catch (ChannelException channelexception) {

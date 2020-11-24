@@ -6,6 +6,8 @@ public class KnockbackProfile {
 
     private final ConfigFile configFile;
     private final String name;
+    private boolean defaultProfile;
+
     private double horizontal = 0.325;
     private double vertical = 0.325;
     private double extraVertical = 0.1;
@@ -16,32 +18,45 @@ public class KnockbackProfile {
     public KnockbackProfile(String name) {
         this.name = name;
         this.configFile = new ConfigFile("knockback/" + name + ".yml", false);
+        this.defaultProfile = false;
 
         load();
     }
 
     public void save() {
+        configFile.set("default", defaultProfile);
         configFile.set("horizontal", horizontal);
         configFile.set("vertical", vertical);
         configFile.set("extraVertical", extraVertical);
         configFile.set("extraHorizontal", extraHorizontal);
         configFile.set("verticalLimit", verticalLimit);
         configFile.set("friction", friction);
+
         configFile.save(true);
     }
 
     public void load() {
+        defaultProfile = configFile.getBoolean("default", false);
         horizontal = configFile.getDouble("horizontal", 0.325);
         vertical = configFile.getDouble("vertical", 0.325);
         extraVertical = configFile.getDouble("extraVertical", 0.1);
         extraHorizontal = configFile.getDouble("extraHorizontal", 0.5);
         verticalLimit = configFile.getDouble("verticalLimit", 0.36);
         friction = configFile.getDouble("friction", 3.5);
+
         save();
     }
 
     public String getName() {
         return name;
+    }
+
+    public boolean isDefaultProfile() {
+        return defaultProfile;
+    }
+
+    public void setDefaultProfile(boolean defaultProfile) {
+        this.defaultProfile = defaultProfile;
     }
 
     public double getHorizontal() {

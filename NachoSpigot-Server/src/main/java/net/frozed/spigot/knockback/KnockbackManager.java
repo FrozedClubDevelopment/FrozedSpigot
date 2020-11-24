@@ -3,10 +3,7 @@ package net.frozed.spigot.knockback;
 import net.frozed.spigot.util.FrozedFileUtils;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class KnockbackManager {
 
@@ -23,6 +20,7 @@ public class KnockbackManager {
     public KnockbackProfile createProfile(String name) {
         KnockbackProfile knockbackProfile = new KnockbackProfile(name);
         knockbackProfileMap.put(name, knockbackProfile);
+
         return knockbackProfile;
     }
 

@@ -4,6 +4,7 @@ import dev.cobblesword.nachospigot.CC;
 import net.jafama.FastMath;
 import net.minecraft.server.MinecraftServer;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -53,19 +54,6 @@ public class TicksPerSecondCommand extends Command {
 
         BukkitScheduler bukkitScheduler = Bukkit.getScheduler();
 
-        long uptimeLong = ManagementFactory.getRuntimeMXBean().getUptime();
-
-        long uptimeInSeconds = uptimeLong / 1000L;
-        long numberOfDays = uptimeInSeconds / 86400L;
-        long numberOfHours = uptimeInSeconds / 3600L - numberOfDays * 3600L;
-        long numberOfMinutes = uptimeInSeconds / 60L - numberOfHours * 60L;
-        long numberOfSeconds = uptimeInSeconds % 60L;
-
-        String uptime = (numberOfDays > 0 ? numberOfDays + " days, " : "")
-                + (numberOfHours > 0 ? numberOfHours + " hours, " : "")
-                + (numberOfMinutes > 0 ? numberOfMinutes + " minutes, " : "")
-                + (numberOfSeconds > 0 ? numberOfSeconds + " seconds" : "");
-
         sender.sendMessage(CC.CHAT_BAR);
 
         sender.sendMessage(CC.translate("&bAlive threads: &f" + ManagementFactory.getThreadMXBean().getThreadCount() + " &3&l｜ &bDaemon threads: &f" + ManagementFactory.getThreadMXBean().getDaemonThreadCount()));
@@ -78,7 +66,9 @@ public class TicksPerSecondCommand extends Command {
         sender.sendMessage(CC.translate("&bTPS from last 1m, 5m, 15m: ") + StringUtils.join(tpsAvg, ", "));
 
         sender.sendMessage(CC.translate("&bLast tick: &f" + decimalFormat.format(MinecraftServer.getServer().lastTickTime)
-                + " ms &3&l｜ &bServer Uptime: &f" + uptime)
+                + " ms &3&l｜ &bServer Uptime: &f" +
+                DurationFormatUtils.formatDurationWords(ManagementFactory.getRuntimeMXBean().getUptime(),
+                        true, true))
         );
 
         sender.sendMessage(CC.translate("&bOS: &f" + ManagementFactory.getOperatingSystemMXBean().getName()

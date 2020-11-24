@@ -18,8 +18,6 @@ import java.util.logging.Level;
 
 import gnu.trove.map.hash.TObjectIntHashMap;
 import com.google.common.collect.Lists;
-import net.frozed.spigot.FrozedSpigot;
-import net.frozed.spigot.commands.EntitiesCommand;
 import net.frozed.spigot.commands.KillEntitiesCommand;
 import net.frozed.spigot.commands.PingCommand;
 import net.frozed.spigot.knockback.command.KnockbackCommand;
@@ -285,7 +283,6 @@ public class SpigotConfig {
 
     private static void tpsCommand() {
         commands.put("ping", new PingCommand());
-        commands.put("entities", new EntitiesCommand());
         commands.put("knockback", new KnockbackCommand());
         commands.put("killentities", new KillEntitiesCommand());
         commands.put("tps", new TicksPerSecondCommand("tps"));

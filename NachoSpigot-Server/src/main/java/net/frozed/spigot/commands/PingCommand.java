@@ -24,17 +24,16 @@ public class PingCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-        Player player = (Player) sender;
         if (args.length < 1) {
-            player.sendMessage(CC.translate("&bYour ping: &f" + ((CraftPlayer) player).getHandle().ping + "ms"));
+            sender.sendMessage(CC.translate("&bYour ping: &f" + ((CraftPlayer) sender).getHandle().ping + "ms"));
             return true;
         }
 
         Player target = Bukkit.getPlayer(args[0]);
         if (target != null) {
-            player.sendMessage(CC.translate("&b" + target.getName() + "'s ping: &f" + ((CraftPlayer) target).getHandle().ping + "ms"));
+            sender.sendMessage(CC.translate("&b" + target.getName() + "'s ping: &f" + ((CraftPlayer) target).getHandle().ping + "ms"));
         } else {
-            player.sendMessage(CC.translate("&c" + args[0] + " is not online."));
+            sender.sendMessage(CC.translate("&c" + args[0] + " is not online."));
         }
 
         return true;

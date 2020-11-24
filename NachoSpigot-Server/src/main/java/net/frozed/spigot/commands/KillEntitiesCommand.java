@@ -2,16 +2,12 @@ package net.frozed.spigot.commands;
 
 import dev.cobblesword.nachospigot.CC;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * Created by Elb1to
@@ -22,7 +18,9 @@ public class KillEntitiesCommand extends Command {
 
     public KillEntitiesCommand() {
         super("killentities");
-        setPermission("frozedspigot.killentities");
+        this.usageMessage = "/killentities";
+        this.setPermission("frozedspigot.command.killentities");
+        this.setAliases(Arrays.asList("removeentities", "removemobs", "killmobs"));
     }
 
     @Override
@@ -30,14 +28,13 @@ public class KillEntitiesCommand extends Command {
         AtomicInteger atomicInteger = new AtomicInteger();
 
         Bukkit.getWorlds().forEach(entities ->
-                entities.getEntities().stream().filter(entity ->
-                        (!(entity instanceof Player))).forEach(entity -> {
+                entities.getEntities().stream().filter(entity -> (!(entity instanceof Player))).forEach(entity -> {
                     entity.remove();
                     atomicInteger.incrementAndGet();
-                }));
+                })
+        );
 
-        sender.sendMessage(CC.WHITE + "You have successfully killed " + CC.AQUA + CC.BOLD
-                + atomicInteger.get() + CC.WHITE + " entities.");
+        sender.sendMessage(CC.translate("&bYou have successfully killed &f&l" + atomicInteger.get() + "&b entities."));
         return true;
     }
 }

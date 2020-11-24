@@ -39,6 +39,8 @@ public class KnockbackCommand extends Command {
                 sender.sendMessage(CC.translate(""));
                 sender.sendMessage(CC.translate("  &3 ▶ &7apply <profileName> <all:playerName>"));
                 sender.sendMessage(CC.CHAT_BAR);
+
+                return true;
             }
 
             sender.sendMessage(CC.CHAT_BAR);

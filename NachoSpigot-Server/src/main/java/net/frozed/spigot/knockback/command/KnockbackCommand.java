@@ -22,7 +22,7 @@ public class KnockbackCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        if (sender.hasPermission("frozedspigot.knockback")) {
+        if (sender.hasPermission("frozedspigot.command.knockback")) {
             if (args.length < 1) {
                 sender.sendMessage(CC.CHAT_BAR);
                 sender.sendMessage(CC.translate("&b&lFrozedSpigot &7- &fv1.0 &8[&31.8.8&8]"));

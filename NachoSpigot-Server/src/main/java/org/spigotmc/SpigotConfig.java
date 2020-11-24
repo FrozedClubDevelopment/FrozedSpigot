@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import com.google.common.collect.Lists;
 import net.frozed.spigot.FrozedSpigot;
+import net.frozed.spigot.commands.KillEntitiesCommand;
 import net.frozed.spigot.knockback.command.KnockbackCommand;
 import net.minecraft.server.AttributeRanged;
 import net.minecraft.server.GenericAttributes;
@@ -283,6 +284,7 @@ public class SpigotConfig {
     private static void tpsCommand() {
         commands.put("tps", new TicksPerSecondCommand("tps"));
         commands.put("knockback", new KnockbackCommand());
+        commands.put("killentities", new KillEntitiesCommand());
     }
 
     public static int playerSample;

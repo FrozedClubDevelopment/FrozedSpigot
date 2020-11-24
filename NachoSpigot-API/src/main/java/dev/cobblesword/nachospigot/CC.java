@@ -2,85 +2,66 @@ package dev.cobblesword.nachospigot;
 
 import org.bukkit.ChatColor;
 
-public class CC
-{
-    public static String
-    blue = ChatColor.BLUE.toString(),
-    aqua = ChatColor.AQUA.toString(),
-    yellow = ChatColor.YELLOW.toString(),
-    red = ChatColor.RED.toString(),
-    gray = ChatColor.GRAY.toString(),
-    gold = ChatColor.GOLD.toString(),
-    green = ChatColor.GREEN.toString(),
-    white = ChatColor.WHITE.toString(),
-    black = ChatColor.BLACK.toString(),
-    pink = ChatColor.LIGHT_PURPLE.toString(),
+import java.util.ArrayList;
+import java.util.List;
 
-    darkBlue = ChatColor.DARK_BLUE.toString(),
-    darkAqua = ChatColor.DARK_AQUA.toString(),
-    darkGray = ChatColor.DARK_GRAY.toString(),
-    darkGreen = ChatColor.DARK_GREEN.toString(),
-    darkPurple = ChatColor.DARK_PURPLE.toString(),
-    darkRed = ChatColor.DARK_RED.toString(),
+public class CC {
 
-    dBlue = darkBlue,
-    dAqua = darkAqua,
-    dGray = darkGray,
-    dGreen = darkGreen,
-    dPurple = darkPurple,
-    dRed = darkRed,
+    public static final String BLUE = ChatColor.BLUE.toString();
+    public static final String AQUA = ChatColor.AQUA.toString();
+    public static final String YELLOW = ChatColor.YELLOW.toString();
+    public static final String RED = ChatColor.RED.toString();
+    public static final String GRAY = ChatColor.GRAY.toString();
+    public static final String GOLD = ChatColor.GOLD.toString();
+    public static final String GREEN = ChatColor.GREEN.toString();
+    public static final String WHITE = ChatColor.WHITE.toString();
+    public static final String BLACK = ChatColor.BLACK.toString();
+    public static final String BOLD = ChatColor.BOLD.toString();
+    public static final String ITALIC = ChatColor.ITALIC.toString();
+    public static final String UNDER_LINE = ChatColor.UNDERLINE.toString();
+    public static final String STRIKE_THROUGH = ChatColor.STRIKETHROUGH.toString();
+    public static final String RESET = ChatColor.RESET.toString();
+    public static final String MAGIC = ChatColor.MAGIC.toString();
+    public static final String DARK_BLUE = ChatColor.DARK_BLUE.toString();
+    public static final String DARK_AQUA = ChatColor.DARK_AQUA.toString();
+    public static final String DARK_GRAY = ChatColor.DARK_GRAY.toString();
+    public static final String DARK_GREEN = ChatColor.DARK_GREEN.toString();
+    public static final String DARK_PURPLE = ChatColor.DARK_PURPLE.toString();
+    public static final String DARK_RED = ChatColor.DARK_RED.toString();
+    public static final String PINK = ChatColor.LIGHT_PURPLE.toString();
+    public static final String MENU_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH.toString() + "----------------------------";
+    public static final String DARK_MENU_BAR = ChatColor.DARK_GRAY.toString() + ChatColor.STRIKETHROUGH.toString() + "--------------------------------";
+    public static final String CHAT_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH.toString() + "------------------------------------------------";
+    public static final String SB_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH.toString() + "----------------------";
 
-    lightPurple = ChatColor.LIGHT_PURPLE.toString(),
+    public static String translate(String in) {
+        return ChatColor.translateAlternateColorCodes('&', in);
+    }
 
-    lPurple = lightPurple,
+    public static List<String> translate(List<String> lines) {
+        List<String> toReturn = new ArrayList<>();
+        for (String line : lines) {
+            toReturn.add(ChatColor.translateAlternateColorCodes('&', line));
+        }
 
-    bold = ChatColor.BOLD.toString(),
-    magic = ChatColor.MAGIC.toString(),
-    italic = ChatColor.ITALIC.toString(),
-    strikeThrough = ChatColor.STRIKETHROUGH.toString(),
-    reset = ChatColor.RESET.toString(),
+        return toReturn;
+    }
 
-    b = bold,
-    m = magic,
-    i = italic,
-    s = strikeThrough,
-    r = reset,
+    public static List<String> translate(String[] lines) {
+        List<String> toReturn = new ArrayList<>();
+        for (String line : lines) {
+            if (line != null) {
+                toReturn.add(ChatColor.translateAlternateColorCodes('&', line));
+            }
+        }
 
-    bBlue = blue + b,
-    bAqua =  aqua  + b,
-    bYellow = yellow + b,
-    bRed =  red + b,
-    bGray = gray + b,
-    bGold = gold + b,
-    bGreen =  green + b,
-    bWhite =  white + b,
-    bBlack =  black + b,
+        return toReturn;
+    }
 
-    bdBlue =  dBlue + b,
-    bdAqua = dAqua + b,
-    bdGray =  dGray  + b,
-    bdGreen =  dGreen + b,
-    bdPurple =  dPurple + b,
-    bdRed =  dRed + b,
-
-    blPurple =  lPurple  + b,
-
-    iBlue = blue + i,
-    iAqua =  aqua  + i,
-    iYellow = yellow + i,
-    iRed =  red + i,
-    iGray = gray + i,
-    iGold = gold + i,
-    iGreen =  green + i,
-    iWhite =  white + i,
-    iBlack =  black + i,
-
-    idBlue =  dBlue + i,
-    idAqua = dAqua + i,
-    idGray =  dGray  + i,
-    idGreen =  dGreen + i,
-    idPurple =  dPurple + i,
-    idRed =  dRed + i,
-
-    ilPurple =  lPurple  + i;
+    public static String format(String format, Object... args) {
+        return ChatColor.translateAlternateColorCodes('&', String.format(format.replace("$1", "%1$s").replace("$2", "%2$s")
+                .replace("$3", "%3$s").replace("$4", "%4$s").replace("$5", "%5$s")
+                .replace("$6", "%6$s").replace("$7", "%7$s").replace("$8", "%8$s")
+                .replace("$9", "%9$s").replace("$10", "%10$s"), args));
+    }
 }

@@ -282,7 +282,7 @@ public class SpigotConfig {
 
     private static void tpsCommand() {
         commands.put("tps", new TicksPerSecondCommand("tps"));
-        commands.put("knockback", new KnockbackCommand(FrozedSpigot.get()));
+        commands.put("knockback", new KnockbackCommand());
     }
 
     public static int playerSample;

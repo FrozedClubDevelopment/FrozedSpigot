@@ -11,13 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.lang.management.ManagementFactory;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Objects;
-import java.util.TimeZone;
 import java.util.stream.IntStream;
 
 public class TicksPerSecondCommand extends Command {
@@ -57,10 +53,18 @@ public class TicksPerSecondCommand extends Command {
 
         BukkitScheduler bukkitScheduler = Bukkit.getScheduler();
 
-        Date date = new Date(ManagementFactory.getRuntimeMXBean().getUptime());
-        DateFormat formattedDate = new SimpleDateFormat("HH:mm:ss");
-        formattedDate.setTimeZone(TimeZone.getDefault());
-        String dateFormatted = formattedDate.format(date);
+        long uptimeLong = ManagementFactory.getRuntimeMXBean().getUptime();
+
+        long uptimeInSeconds = uptimeLong / 1000L;
+        long numberOfDays = uptimeInSeconds / 86400L;
+        long numberOfHours = uptimeInSeconds / 3600L - numberOfDays * 3600L;
+        long numberOfMinutes = uptimeInSeconds / 60L - numberOfHours * 60L;
+        long numberOfSeconds = uptimeInSeconds % 60L;
+
+        String uptime = (numberOfDays > 0 ? numberOfDays + " days, " : "")
+                + (numberOfHours > 0 ? numberOfHours + " hours, " : "")
+                + (numberOfMinutes > 0 ? numberOfMinutes + " minutes, " : "")
+                + (numberOfSeconds > 0 ? numberOfSeconds + " seconds" : "");
 
         sender.sendMessage(CC.CHAT_BAR);
 
@@ -74,7 +78,12 @@ public class TicksPerSecondCommand extends Command {
         sender.sendMessage(CC.translate("&bTPS from last 1m, 5m, 15m: ") + StringUtils.join(tpsAvg, ", "));
 
         sender.sendMessage(CC.translate("&bLast tick: &f" + decimalFormat.format(MinecraftServer.getServer().lastTickTime)
-                + " ms &3&l｜ &bServer Uptime: &f" + dateFormatted)
+                + " ms &3&l｜ &bServer Uptime: &f" + uptime)
+        );
+
+        sender.sendMessage(CC.translate("&bOS: &f" + ManagementFactory.getOperatingSystemMXBean().getName()
+                + " &3&l｜ &bCPU Cores: &f" + ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors()
+                + " &3&l｜ &bCPU Load: &f" + ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage())
         );
 
         sender.sendMessage(CC.translate("&bOnline players: &f" + Bukkit.getServer().getOnlinePlayers().size() + "/" + Bukkit.getServer().getMaxPlayers()

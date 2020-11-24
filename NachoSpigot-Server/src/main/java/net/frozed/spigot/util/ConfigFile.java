@@ -1,6 +1,5 @@
 package net.frozed.spigot.util;
 
-import jdk.xml.internal.SecuritySupport;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -14,7 +13,7 @@ public class ConfigFile extends YamlConfiguration {
     private final String name;
     private File file;
 
-    public ConfigFile(String name) {
+    public ConfigFile(String name, boolean saveFromResource) {
         this.name = name;
         try {
             boolean newFile = false;
@@ -26,8 +25,12 @@ public class ConfigFile extends YamlConfiguration {
             load(file);
 
             if (newFile) {
-                InputStream inputStream = ConfigFile.class.getResourceAsStream(file.getName());
-                Files.copy(inputStream, file.toPath());
+                if (saveFromResource) {
+                    InputStream inputStream = ConfigFile.class.getResourceAsStream(file.getName());
+                    Files.copy(inputStream, file.toPath());
+                } else {
+                    save(file);
+                }
             }
 
         } catch (Exception ignored) {

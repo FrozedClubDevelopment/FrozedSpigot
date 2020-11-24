@@ -15,7 +15,7 @@ public class KnockbackProfile {
 
     public KnockbackProfile(String name) {
         this.name = name;
-        this.configFile = new ConfigFile("knockback/" + name + ".yml");
+        this.configFile = new ConfigFile("knockback/" + name + ".yml", false);
 
         load();
     }

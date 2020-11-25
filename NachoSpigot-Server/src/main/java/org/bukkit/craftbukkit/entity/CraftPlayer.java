@@ -68,10 +68,13 @@ import org.bukkit.plugin.messaging.StandardMessenger;
 import org.bukkit.scoreboard.Scoreboard;
 // PaperSpigot start
 import org.github.paperspigot.Title;
+
+import javax.annotation.Nullable;
 // PaperSpigot end
 
 @DelegateDeserialization(CraftOfflinePlayer.class)
 public class CraftPlayer extends CraftHumanEntity implements Player {
+
     private long firstPlayed;
     private long lastPlayed = 0;
     private boolean hasPlayedBefore = false;
@@ -192,8 +195,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
 
     @Override
     public void setPlayerListHeaderFooter(BaseComponent header, BaseComponent footer) {
-        this.setPlayerListHeaderFooter(header == null ? null : new BaseComponent[]{header},
-                footer == null ? null : new BaseComponent[]{footer});
+        this.setPlayerListHeaderFooter(header == null ? null : new BaseComponent[]{header}, footer == null ? null : new BaseComponent[]{footer});
     }
 
 
@@ -259,6 +261,47 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         getHandle().playerConnection.sendPacket(new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.CLEAR, (BaseComponent[]) null, 0, 0, 0));
     }
     // Paper end
+
+    // FrozedSpigot - Disguise START
+    // Helper: FixedBroski
+
+    @Nullable private String disguiseName;
+    @Nullable private String disguiseSkin;
+
+    @Nullable @Override
+    public String getDisguiseName() {
+        return disguiseName;
+    }
+
+    @Override
+    public void setDisguiseName(@Nullable String disguiseName) {
+        if (disguiseName != null && disguiseName.equals(this.disguiseName)) {
+            return;
+        }
+
+        this.disguiseName = disguiseName;
+    }
+
+    @Nullable @Override
+    public String getDisguiseSkin() {
+        return disguiseSkin;
+    }
+
+    @Override
+    public void setDisguiseSkin(@Nullable String disguiseSkin) {
+        if (disguiseSkin != null && disguiseSkin.equals(this.disguiseSkin)) {
+            return;
+        }
+
+        this.disguiseSkin = disguiseSkin;
+    }
+
+    @Override
+    public boolean isDisguised() {
+        return getDisguiseName() != null || getDisguiseSkin() != null;
+    }
+
+    // FrozedSpigot - Disguise END
 
     @Override
     public String getDisplayName() {

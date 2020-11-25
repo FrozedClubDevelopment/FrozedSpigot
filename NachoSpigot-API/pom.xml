@@ -73,7 +73,13 @@
             <version>17.0</version>
             <scope>compile</scope>
         </dependency>
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine &ndash;&gt;-->
+        <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>com.github.ben-manes.caffeine</groupId>-->
 <!--            <artifactId>caffeine</artifactId>-->

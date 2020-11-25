@@ -22,11 +22,11 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
 
     @Nullable public String getDisguiseName();
 
-    public void setDisguiseName(@Nullable String disguiseName);
+    public void setDisguiseName(String disguiseName);
 
     @Nullable public String getDisguiseSkin();
 
-    public void setDisguiseSkin(@Nullable String disguiseSkin);
+    public void setDisguiseSkin(String disguiseSkin);
 
     public boolean isDisguised();
 

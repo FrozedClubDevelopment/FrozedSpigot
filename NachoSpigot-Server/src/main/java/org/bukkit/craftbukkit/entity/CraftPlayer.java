@@ -265,16 +265,16 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     // FrozedSpigot - Disguise START
     // Helper: FixedBroski
 
-    @Nullable private String disguiseName;
-    @Nullable private String disguiseSkin;
+    private String disguiseName;
+    private String disguiseSkin;
 
-    @Nullable @Override
+    @Override
     public String getDisguiseName() {
         return disguiseName;
     }
 
     @Override
-    public void setDisguiseName(@Nullable String disguiseName) {
+    public void setDisguiseName(String disguiseName) {
         if (disguiseName != null && disguiseName.equals(this.disguiseName)) {
             return;
         }
@@ -282,13 +282,13 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         this.disguiseName = disguiseName;
     }
 
-    @Nullable @Override
+    @Override
     public String getDisguiseSkin() {
         return disguiseSkin;
     }
 
     @Override
-    public void setDisguiseSkin(@Nullable String disguiseSkin) {
+    public void setDisguiseSkin(String disguiseSkin) {
         if (disguiseSkin != null && disguiseSkin.equals(this.disguiseSkin)) {
             return;
         }

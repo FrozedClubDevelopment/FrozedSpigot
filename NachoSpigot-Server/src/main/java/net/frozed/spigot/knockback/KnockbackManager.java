@@ -1,5 +1,6 @@
 package net.frozed.spigot.knockback;
 
+import net.frozed.spigot.FrozedSpigot;
 import net.frozed.spigot.util.FrozedFileUtils;
 
 import java.io.File;
@@ -15,6 +16,16 @@ public class KnockbackManager {
             KnockbackProfile profile = createProfile(FrozedFileUtils.transformName(fileName.getName()));
             System.out.println("Loaded profile called " + profile.getName());
         });
+
+        if (FrozedSpigot.get().getActiveKnockbackProfile() == null) {
+            KnockbackProfile defaultProfile = getByName(FrozedSpigot.get().getFrozedConfig()
+                    .getString("knockback.activeProfile", "Default"));
+
+            if (defaultProfile == null)
+                createProfile("Default");
+
+            FrozedSpigot.get().setActiveKnockbackProfile(defaultProfile);
+        }
     }
 
     public KnockbackProfile createProfile(String name) {

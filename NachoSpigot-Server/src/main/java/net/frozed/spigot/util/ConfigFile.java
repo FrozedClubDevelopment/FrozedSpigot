@@ -1,11 +1,14 @@
 package net.frozed.spigot.util;
 
+import com.google.common.base.Charsets;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class ConfigFile extends YamlConfiguration {
@@ -26,8 +29,11 @@ public class ConfigFile extends YamlConfiguration {
 
             if (newFile) {
                 if (saveFromResource) {
-                    InputStream inputStream = ConfigFile.class.getResourceAsStream(file.getName());
-                    Files.copy(inputStream, file.toPath());
+                    //Code taken from bukkit's config util
+                    options().copyDefaults(true);
+                    setDefaults(YamlConfiguration.loadConfiguration(new
+                            InputStreamReader(Objects.requireNonNull(getClass().getClassLoader()
+                            .getResourceAsStream(name + ".yml")), Charsets.UTF_8)));
                 } else {
                     save(file);
                 }

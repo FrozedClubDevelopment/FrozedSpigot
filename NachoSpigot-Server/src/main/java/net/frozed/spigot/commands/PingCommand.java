@@ -30,12 +30,13 @@ public class PingCommand extends Command {
         }
 
         Player target = Bukkit.getPlayer(args[0]);
-        if (target != null) {
-            sender.sendMessage(CC.translate("&b" + target.getName() + "'s ping: &f" + ((CraftPlayer) target).getHandle().ping + "ms"));
-        } else {
+        if (target == null) {
             sender.sendMessage(CC.translate("&c" + args[0] + " is not online."));
+            return true;
         }
 
+        sender.sendMessage(CC.translate("&b" + target.getName() + "'s ping: &f" + ((CraftPlayer) target).getHandle().ping + "ms"));
         return true;
+
     }
 }

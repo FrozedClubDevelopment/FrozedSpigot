@@ -34,7 +34,8 @@ public class KillEntitiesCommand extends Command {
                 })
         );
 
-        sender.sendMessage(CC.translate("&bYou have successfully killed &f&l" + atomicInteger.get() + "&b entities."));
+        sender.sendMessage(CC.translate("&bYou have successfully killed &f&l"
+                + atomicInteger.get() + "&b entities."));
         return true;
     }
 }

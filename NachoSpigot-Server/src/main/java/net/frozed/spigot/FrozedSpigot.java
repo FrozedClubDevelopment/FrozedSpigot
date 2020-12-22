@@ -8,8 +8,8 @@ public class FrozedSpigot {
 
     private static FrozedSpigot INSTANCE;
     private final KnockbackManager knockbackManager;
-    private KnockbackProfile activeKnockbackProfile;
     private final ConfigFile frozedConfig;
+    private KnockbackProfile activeKnockbackProfile;
 
     public FrozedSpigot() {
         INSTANCE = this;

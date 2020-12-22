@@ -37,8 +37,9 @@ public class KnockbackManager {
 
     public void deleteProfile(String name) {
         KnockbackProfile knockbackProfile = getByName(name);
-        knockbackProfile.getConfigFile().getFile().delete();
-        knockbackProfileMap.remove(name);
+        boolean delete = knockbackProfile.getConfigFile().getFile().delete();
+        if (delete)
+            knockbackProfileMap.remove(name);
     }
 
     public KnockbackProfile getByName(String name) {

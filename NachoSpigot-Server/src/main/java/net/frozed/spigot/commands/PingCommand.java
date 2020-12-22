@@ -35,7 +35,8 @@ public class PingCommand extends Command {
             return true;
         }
 
-        sender.sendMessage(CC.translate("&b" + target.getName() + "'s ping: &f" + ((CraftPlayer) target).getHandle().ping + "ms"));
+        sender.sendMessage(CC.translate("&b" + target.getName() + "'s ping: &f"
+                + ((CraftPlayer) target).getHandle().ping + "ms"));
         return true;
 
     }

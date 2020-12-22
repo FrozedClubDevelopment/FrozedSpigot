@@ -64,7 +64,8 @@ public class KnockbackCommand extends Command {
             case "list": {
                 sender.sendMessage(CC.translate("&b&lFrozedSpigot &8- &fKnockback Profiles"));
                 sender.sendMessage(" ");
-                FrozedSpigot.get().getKnockbackManager().getKnockbackProfileMap().values().forEach(profile -> sender.sendMessage(" - " + profile.getName()));
+                FrozedSpigot.get().getKnockbackManager().getKnockbackProfileMap().values().forEach(profile
+                        -> sender.sendMessage(" - " + profile.getName()));
                 break;
             }
             case "setdefault": {
